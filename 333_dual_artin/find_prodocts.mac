@@ -1,0 +1,102 @@
+conj(x,y):= block(
+	all_poss: [u, v, w],
+	rem: delete(op(x), delete(op(y), all_poss)),
+	new: first(rem),
+	indicies: map(lambda([w], first(args(w))), [x, y]),
+	if length(rem) = 1 then 
+		first(rem)[1-indicies[1] - indicies[2]]
+	else
+		op(x)[2*indicies[2] - indicies[1]]
+	)$
+
+s_1(r):= [r[2], conj(r[1],r[2]), r[3]]$
+s_1_inv(r):= [conj(r[2], r[1]), r[1], r[3]]$
+
+s_2(r):= [r[1], r[3], conj(r[2], r[3])]$
+s_2_inv(r):= [r[1], conj(r[3], r[2]), r[2]]$
+
+gens_and_inverses: [s_1, s_2, s_1_inv, s_2_inv]$
+gen_inv_pairings: [[s_1, s_1_inv], [s_2, s_2_inv]]$
+
+do_fs(fs, x_0):= block(
+	fs: reverse(fs),
+	new: x_0,
+	for f in fs do
+		new: f(new),
+	new
+	)$
+
+c: [u[0], v[0], w[0]]$
+
+do_fs([ s_1, s_2, s_1], c)$
+do_fs([ s_2, s_1, s_2], c)$
+do_fs([ s_2_inv, s_1_inv, s_2_inv,s_2, s_1, s_2], c)$
+
+/* Function to generate all length n lists (with repeats) with elements from list X */
+all_lists(X, n) :=
+  if n = 0 then [[]] /* Base case: a single empty list when n = 0 */
+  else block(
+    [rest],
+    rest: all_lists(X, n - 1), /* Recursive call to generate lists of length n-1 */
+    map(flatten, cartesian_product_list(rest, X))
+  )$
+
+words_1: all_lists(gens_and_inverses, 1)$
+words_2: all_lists(gens_and_inverses, 2)$
+words_3: all_lists(gens_and_inverses, 3)$
+words_4: all_lists(gens_and_inverses, 4)$
+all_words: lreduce(append, [words_1, words_2])$
+
+make_pairs(words):= makelist([reduce_word(word, gen_inv_pairings), do_fs(word, c)], word, words);
+
+accumulate(pairs):= block(
+	all_b: makelist(second(pair), pair, pairs),
+	unique_b: listify(setify(all_b)),
+	accumulated_pairs: [],
+	for b in unique_b do block(
+		associated_as: [],
+		for pair in pairs do
+			if second(pair) = b then associated_as: append(associated_as, [first(pair)]),
+		accumulated_pairs: append(accumulated_pairs, [[setify(associated_as), b]])
+		),
+	accumulated_pairs
+	)$
+
+reduce_word(word, inv_pairs):= block(
+	inv_pair_sets: map(setify, inv_pairs),
+	pair_found: true,
+	while length(word) > 1 and pair_found do block(
+		for i:1 thru length(word) - 1 do block(
+			if member({word[i], word[i+1]}, inv_pair_sets) then block(
+				word_prefix: firstn(word, i-1),
+				word_suffix: lastn(word, length(word) - (i + 1)),
+				word: append(word_prefix, word_suffix),
+				exit)
+			elseif i = length(word) - 1 then pair_found: false
+			)
+		),
+	word
+	)$
+
+/* Function to convert a list of lists to (; separated) CSV format */
+write_csv(filename, data_list) := block(
+    [file_stream, row],
+    /* Open the file for writing */
+    file_stream : openw(filename),
+
+    /* Iterate over each list (row) in data_list */
+    for row in data_list do (
+        /* Write the row as comma-separated values */
+        printf(file_stream, "~{~a~^;~}~%", row)
+    ),
+
+    /* Close the file */
+    close(file_stream),
+    print("CSV file written to ", filename)
+);
+
+write_csv("./2_words.csv", accumulate(make_pairs(words_2)));
+write_csv("./3_words.csv", accumulate(make_pairs(words_3)));
+write_csv("./4_words.csv", accumulate(make_pairs(words_4)));
+
+reduce_word([a_1, a_1_inv, a_1, b_2, b_3, a_1_inv, a_1], [[a_1, a_1_inv]]);
