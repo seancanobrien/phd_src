@@ -41,13 +41,16 @@ all_lists(X, n) :=
     map(flatten, cartesian_product_list(rest, X))
   )$
 
-words_1: all_lists(gens_and_inverses, 1)$
-words_2: all_lists(gens_and_inverses, 2)$
-words_3: all_lists(gens_and_inverses, 3)$
-words_4: all_lists(gens_and_inverses, 4)$
-all_words: lreduce(append, [words_1, words_2])$
+/* words_1: all_lists(gens_and_inverses, 1)$ */
+/* words_2: all_lists(gens_and_inverses, 2)$ */
+/* words_3: all_lists(gens_and_inverses, 3)$ */
+/* words_4: all_lists(gens_and_inverses, 4)$ */
+/* words_8: all_lists(gens_and_inverses, 8)$ */
+/* words_9: all_lists(gens_and_inverses, 9)$ */
 
-make_pairs(words):= makelist([reduce_word(word, gen_inv_pairings), do_fs(word, c)], word, words);
+/* all_words: lreduce(append, [words_1, words_2])$ */
+
+make_pairs(words):= makelist([reduce_word(word, gen_inv_pairings), do_fs(word, c)], word, words)$
 
 accumulate(pairs):= block(
 	all_b: makelist(second(pair), pair, pairs),
@@ -93,10 +96,10 @@ write_csv(filename, data_list) := block(
     /* Close the file */
     close(file_stream),
     print("CSV file written to ", filename)
-);
+)$
 
-write_csv("./2_words.csv", accumulate(make_pairs(words_2)));
-write_csv("./3_words.csv", accumulate(make_pairs(words_3)));
-write_csv("./4_words.csv", accumulate(make_pairs(words_4)));
-
-reduce_word([a_1, a_1_inv, a_1, b_2, b_3, a_1_inv, a_1], [[a_1, a_1_inv]]);
+/* write_csv("./2_words.csv", accumulate(make_pairs(words_2))); */
+/* write_csv("./3_words.csv", accumulate(make_pairs(words_3))); */
+/* write_csv("./4_words.csv", accumulate(make_pairs(words_4))); */
+/* write_csv("./8_words.csv", accumulate(make_pairs(words_8))); */
+/* write_csv("./9_words.csv", accumulate(make_pairs(words_9))); */
