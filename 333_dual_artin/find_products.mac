@@ -15,7 +15,10 @@ s_1_inv(r):= [conj(r[2], r[1]), r[1], r[3]]$
 s_2(r):= [r[1], r[3], conj(r[2], r[3])]$
 s_2_inv(r):= [r[1], conj(r[3], r[2]), r[2]]$
 
-gens_and_inverses: [s_1, s_2, s_1_inv, s_2_inv]$
+id(r):= r$
+
+/* [] represents identity here */
+gens_and_inverses: [[], s_1, s_2, s_1_inv, s_2_inv]$
 gen_inv_pairings: [[s_1, s_1_inv], [s_2, s_2_inv]]$
 
 do_fs(fs, x_0):= block(
@@ -33,37 +36,13 @@ do_fs([ s_2, s_1, s_2], c)$
 do_fs([ s_2_inv, s_1_inv, s_2_inv,s_2, s_1, s_2], c)$
 
 /* Function to generate all length n lists (with repeats) with elements from list X */
-all_lists(X, n) :=
+all_words(X, n) :=
   if n = 0 then [[]] /* Base case: a single empty list when n = 0 */
   else block(
     [rest],
     rest: all_lists(X, n - 1), /* Recursive call to generate lists of length n-1 */
     map(flatten, cartesian_product_list(rest, X))
   )$
-
-/* words_1: all_lists(gens_and_inverses, 1)$ */
-/* words_2: all_lists(gens_and_inverses, 2)$ */
-/* words_3: all_lists(gens_and_inverses, 3)$ */
-/* words_4: all_lists(gens_and_inverses, 4)$ */
-/* words_8: all_lists(gens_and_inverses, 8)$ */
-/* words_9: all_lists(gens_and_inverses, 9)$ */
-
-/* all_words: lreduce(append, [words_1, words_2])$ */
-
-make_pairs(words):= makelist([reduce_word(word, gen_inv_pairings), do_fs(word, c)], word, words)$
-
-accumulate(pairs):= block(
-	all_b: makelist(second(pair), pair, pairs),
-	unique_b: listify(setify(all_b)),
-	accumulated_pairs: [],
-	for b in unique_b do block(
-		associated_as: [],
-		for pair in pairs do
-			if second(pair) = b then associated_as: append(associated_as, [first(pair)]),
-		accumulated_pairs: append(accumulated_pairs, [[setify(associated_as), b]])
-		),
-	accumulated_pairs
-	)$
 
 reduce_word(word, inv_pairs):= block(
 	inv_pair_sets: map(setify, inv_pairs),
@@ -79,6 +58,33 @@ reduce_word(word, inv_pairs):= block(
 			)
 		),
 	word
+	)$
+
+/* smarter version of all_words that reduces (free group word reduction) words as you go. */
+all_reduced_words(X, inv_pairs, n):= 
+	if n = 0 then [[]]
+	else block(
+		[prefixes],
+		prefixes: all_reduced_words(X, inv_pairs, n - 1),
+		listify(setify(map(lambda([x], reduce_word(x, inv_pairs)), map(flatten, cartesian_product_list(prefixes, X)))))
+		)$
+
+
+make_pairs(words):= makelist([reduce_word(word, gen_inv_pairings), do_fs(word, c)], word, words)$
+
+/* brings together all the different words in the braid group that result in the same factorisation. */
+/* There is a list element for each factorisation. */
+accumulate(pairs):= block(
+	all_b: makelist(second(pair), pair, pairs),
+	unique_b: listify(setify(all_b)),
+	accumulated_pairs: [],
+	for b in unique_b do block(
+		associated_as: [],
+		for pair in pairs do
+			if second(pair) = b then associated_as: append(associated_as, [first(pair)]),
+		accumulated_pairs: append(accumulated_pairs, [[setify(associated_as), b]])
+		),
+	accumulated_pairs
 	)$
 
 /* Function to convert a list of lists to (; separated) CSV format */
@@ -98,8 +104,40 @@ write_csv(filename, data_list) := block(
     print("CSV file written to ", filename)
 )$
 
-/* write_csv("./2_words.csv", accumulate(make_pairs(words_2))); */
-/* write_csv("./3_words.csv", accumulate(make_pairs(words_3))); */
-/* write_csv("./4_words.csv", accumulate(make_pairs(words_4))); */
-/* write_csv("./8_words.csv", accumulate(make_pairs(words_8))); */
+/* see work on 2024/10/17 in ipad. I am trying to enumerate all the factorisations. */
+/* the "local action" is the single move from the nearest triangle  */
+make_triangle(n):= if mod(n,2)=0 then
+		[u[-n/2], v[0], w[n/2]]
+	else
+		[w[n/2 + 1/2], v[1], u[-n/2 + 1/2]]$
+
+/* code is [n,i] for n integer and i in [0,1,2,3] */
+/* n is triangle, i is move away from triangle */
+get_factorisation_from_code(code):= block(
+	[n, local_action_index]: code,
+	local_actions: [id, s_1, s_2, s_2_inv],
+	triangle: make_triangle(n),
+	local_actions[local_action_index + 1](triangle)
+	)$
+
+all_factorisation_codes_up_to_n(n):= 
+	cartesian_product_list(makelist(i, i, -n, n), [0, 1, 2, 3]);
+
+all_factorisations_up_to_n(n):= map(get_factorisation_from_code, all_factorisation_codes_up_to_n(n))$
+
+/* check that the above way of enumerating factorisations does indeed result in all the factorisations  */
+/* got by just acting by the braid group via the hurwitz action. */
+all_reduced_words: all_reduced_words(gens_and_inverses, gen_inv_pairings, 8)$
+all_factorisations_due_to_action: setify(map(lambda([x], do_fs(x, c)), all_reduced_words))$
+
+/* if true then enumeration has no overlap (good!) */
+is(length(all_factorisations_up_to_n(20)) - length(setify(all_factorisations_up_to_n(20))) = 0);
+
+all_factorisations_due_to_enumeration: setify(all_factorisations_up_to_n(14))$
+
+/* all the action factorisations that are not enumerated (hopefully none) */
+setdifference(all_factorisations_due_to_action, all_factorisations_due_to_enumeration);
+/* all the enumerated factorisations that are not present as action factorisations (may not be none) */
+setdifference(all_factorisations_due_to_enumeration, all_factorisations_due_to_action);
+
 /* write_csv("./9_words.csv", accumulate(make_pairs(words_9))); */
