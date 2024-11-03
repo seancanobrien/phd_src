@@ -140,4 +140,4 @@ setdifference(all_factorisations_due_to_action, all_factorisations_due_to_enumer
 /* all the enumerated factorisations that are not present as action factorisations (may not be none) */
 setdifference(all_factorisations_due_to_enumeration, all_factorisations_due_to_action);
 
-write_csv("./9_words.csv", accumulate(make_pairs(all_reduced_words(gens_and_inverses, gen_inv_pairings, 9))));
+/* write_csv("./9_words.csv", accumulate(make_pairs(all_reduced_words(gens_and_inverses, gen_inv_pairings, 9)))); */
