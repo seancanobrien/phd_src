@@ -1,0 +1,67 @@
+We will overview a proof in \cite{resteghini_free_2024} while trying to avoid unnecessary detail.
+The generators $S = \Set{s_1, \ldots , s_n} $ have a natural bijection with generators of $A$.
+Let $\overline{s_i}$ denote the generator in $A$ corresponding to $s_i \in S \subseteq W$.
+We have an action of $B_n$ on $A^n$ defined in the exact same way as in \cref{def:braid_action}. We can define such an action on any set closed under conjugation. We will consider the orbit of $\overline{h} = (\overline{s_1}, \ldots, \overline{s_n})$ under this action.
+
+\begin{definition}
+	Let $G$ be a group.
+	Let $\rho_n \colon G^n \to G$ be projection on to coordinate $n$.
+	We define the map ${-} \odot {-} \colon B_n \times G^n \to G$ as follows
+	\[
+		\tau \odot (g_1, \ldots, g_n) = \rho_n(\tau \cdot (g_1, \ldots, g_n))
+		.\]
+\end{definition}
+
+\begin{remark}
+	This is not a group action!
+\end{remark}
+
+\begin{definition}
+	Define the equivalence relation $\sim$ on $B_n$ by  $\tau \sim \tau^\prime$ iff $\tau \odot h = \tau^\prime \odot h$.
+\end{definition}
+
+\begin{definition}
+	Define the equivalence relation $\dot\sim$ on $B_n$ by $\tau \dot\sim \tau^\prime$ iff $\tau \odot \overline{h} = \tau^\prime \odot \overline{h}$
+\end{definition}
+
+\begin{theorem}[\hspace{1sp}{\cite[Propsition 3.9]{resteghini_free_2024}}]
+	The $B_n$ relations $\sim$ and $\dot\sim$ are the same iff $A^*$ is isomorphic to $A$.
+\end{theorem}
+\begin{proof}
+	We will only concentrate on the $\implies$ direction. Furthermore, it is easy enough to see that $\tau \dot\sim \tau^\prime \implies \tau \sim \tau^\prime$.
+	As such, we will only prove that if $\tau \sim \tau^\prime \implies \tau \dot\sim \tau^\prime$ for all $\tau,\tau^\prime \in B_n$, then $A\cong A^*$.
+
+	Define $\psi \colon T \cap (B_n \cdot h) \to A$ in the following way.
+	For $t \in T \cap (B_n \cdot h)$, there exists a $\tau \in B_n$ such that $\tau \odot h = t$.
+	Define  $\psi(t) = \tau \odot \overline{h}$.
+	We will show this does not depend on our choice $\tau$.
+	Suppose that $\tau^\prime \odot h$ is also $t$.
+	Then  $\tau \sim \tau^\prime$.
+	Then, by assumption $\tau \dot\sim \tau^\prime$, so $\tau^\prime\odot \overline{h} = \tau \odot\overline{h}$.
+
+	So we have a map from the generating set of $A^*$ to $A$.
+	Recall the presentation of $A^*$ from \cref{thm:dual_braid_relations}.
+	Let $R$ be the set of relations (words equal to the identity) from that presentation.
+	As in \cref{lem:extend_map_to_homomorphism}, if we can show that the natural extension of $\psi$ to $R$, maps all of $R$ to the identity in $A$, then we can extend $\psi$ to a homomorphism $\psi \colon A^* \to A$.
+
+	Let $t$, $t^\prime$ and $t t^\prime t$ be as in \cref{thm:dual_braid_relations}. Let $\tau B_n$ be such that $\tau \cdot h = (x_1, x_2, \ldots, x_{n-2}, t, t^\prime)$. Let $\tau \cdot \overline{h} = (z_1, \ldots z_n)$. Thus, we have the following
+	\begin{align*}
+		\psi(t^\prime)     & = \tau \cdot \overline{h} = z_n                                    \\
+		\psi(t)            & = (\sigma_{n-1}\tau) \cdot \overline{h} = z_{n-1}                  \\
+		\psi(t t^\prime t) & = (\sigma_{n-1}^2\tau) \cdot \overline{h} = z_{n-1}z_nz_{n-1}^{-1} \\
+	\end{align*}
+
+	Thus, $\psi( [t t^\prime t][t][t^\prime]^{-1}[t]^{-1} ) = 1$ and $\psi$ extends to a homomorphism $\psi \colon A^* \to A$.
+
+	Let $\phi$ denote the homomorphism in \cref{thm:homo_art_to_dual_art}.
+	Note that $\psi \circ \phi |_{\overline{S}} = \id_{\overline{S}}$, thus  $\psi \circ \phi$ is the identity $\psi$ is an isomorphism.
+\end{proof}
+
+This proof gives the distinct impression of ``what just happened''.
+Most striking, is how in showing $\psi$ was a homomorphism, at no point did anything to do with $A$ play a part.
+All we needed was that $A$ was a group, and it all popped out.
+In fact, the key step was the existence of a map $\psi$, we got homomorphism for free.
+This is due to the structure of the relations in \cref{thm:dual_braid_relations}.
+We wish to now abstract the construction of the dual braid group emerging in \cref{thm:dual_braid_relations} and develop that in to a reconstruction of the above proof.
+
+
