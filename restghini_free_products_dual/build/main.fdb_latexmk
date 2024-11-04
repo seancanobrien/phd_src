@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex build/main"] 1730739812 "build/main.aux" "build/main.bbl" "build/main" 1730742008 0
+["bibtex build/main"] 1730739812 "build/main.aux" "build/main.bbl" "build/main" 1730745426 0
   "./bib/refs.bib" 1730648746 5731 99403cd3b2efdcae5ce68a77361db67d ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "build/main.aux" 1730742007 3807 d319d7c83460d21b6c60767a3796bf63 "pdflatex"
+  "build/main.aux" 1730745425 3807 d319d7c83460d21b6c60767a3796bf63 "pdflatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1730742006 "main.tex" "build/main.pdf" "main" 1730742008 0
+["pdflatex"] 1730745424 "main.tex" "build/main.pdf" "main" 1730745426 0
   "/etc/texmf/web2c/texmf.cnf" 1714910249 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/fontawesome5/fa5free1.enc" 1622837620 3042 0e2b14b9be7d01075a4c4591d5d1781b ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -264,19 +264,19 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1681034085 39561 34c98e380bf7c7201ee6a7909aff625a ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1714910280 4623455 fa0568a71dd9a288d6c226ee477506c6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1714910312 7879634 aa95852da9ab7269716d474b5516afd6 ""
-  "build/main.aux" 1730742007 3807 d319d7c83460d21b6c60767a3796bf63 "pdflatex"
+  "build/main.aux" 1730745425 3807 d319d7c83460d21b6c60767a3796bf63 "pdflatex"
   "build/main.bbl" 1730739812 772 1d63cb70aa75a71e90a61242ee62d844 "bibtex build/main"
-  "build/main.out" 1730742007 1282 5d0a89ac1f15f7485c425fc8615929f7 "pdflatex"
+  "build/main.out" 1730745425 1282 5d0a89ac1f15f7485c425fc8615929f7 "pdflatex"
   "main.tex" 1730725368 1021 626ad0a46ccc2b5000fd41437cc6247f ""
-  "sections/introduction/facts.tex" 1730741841 4929 be07010ebbcd749f070ffb778527d1ba ""
-  "sections/introduction/introduction_main.tex" 1730741841 98 a19536609b590597fed8f9c3d2b70f46 ""
-  "sections/introduction/preamble.tex" 1730741841 613 1b08e1c8b135a2666e3072208a826805 ""
-  "sections/language_masked_relations/language_masked_relations.tex" 1730741841 6990 6a952fd0dd686d7ee833945fc5af043d ""
-  "sections/language_masked_relations/language_masked_relations_main.tex" 1730741841 156 883de812197345aa9a01353c9036d8dc ""
-  "sections/re_proof/re_proof.tex" 1730741841 3947 6d25b674daf08c3057623930e10bc200 ""
-  "sections/re_proof/re_proof_main.tex" 1730741841 98 4ace3dde796dc371da66d3b0047a04fd ""
-  "sections/resteghini_proof/resteghini_proof.tex" 1730741841 4103 2984882414530be4059fff1b90e43351 ""
-  "sections/resteghini_proof/resteghini_proof_main.tex" 1730741841 104 ccc49da312935f99f6e3c1fffe966801 ""
+  "sections/introduction/facts.tex" 1730745128 4940 25c23ab14a43de310246ad6351af2ee5 ""
+  "sections/introduction/introduction_main.tex" 1730743331 98 a19536609b590597fed8f9c3d2b70f46 ""
+  "sections/introduction/preamble.tex" 1730745263 613 fd1aba63a02077686bdebf45c74dce9d ""
+  "sections/language_masked_relations/language_masked_relations.tex" 1730743331 6990 9e64d6ab5972e857f07a23653ac0bd55 ""
+  "sections/language_masked_relations/language_masked_relations_main.tex" 1730743331 156 883de812197345aa9a01353c9036d8dc ""
+  "sections/re_proof/re_proof.tex" 1730745408 3952 e2dbad0e28615c017b2facbb37749389 ""
+  "sections/re_proof/re_proof_main.tex" 1730743331 98 4ace3dde796dc371da66d3b0047a04fd ""
+  "sections/resteghini_proof/resteghini_proof.tex" 1730743331 4103 6a0e2c98d53f383251d31052c84daaf5 ""
+  "sections/resteghini_proof/resteghini_proof_main.tex" 1730743331 104 ccc49da312935f99f6e3c1fffe966801 ""
   "sty/my_macros.sty" 1730724311 2069 6a17ad251d1e5a2c24b1f04ce826a912 ""
   "sty/my_preamble.sty" 1730724214 4465 615c59a69e9860b2b79c23958d599d49 ""
   (generated)
