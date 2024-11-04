@@ -32,12 +32,12 @@ We will consider the orbit of $\overline{h} = (\overline{s_1}, \ldots, \overline
 \end{definition}
 
 \begin{theorem}[\hspace{1sp}{\cite[Propsition 3.9]{resteghini_free_2024}}]
-	The $B_n$ relations $\sim$ and $\dsim$ are the same iff $A^*$ is isomorphic to $A$.
+	The $B_n$ relations $\sim$ and $\dsim$ are the same iff $A^\vee$ is isomorphic to $A$.
 	\label{thm:resteghini_proof}
 \end{theorem}
 \begin{proof}
 	We will only concentrate on the $\implies$ direction. Furthermore, it is easy enough to see that $\tau \dsim \tau^\prime \implies \tau \sim \tau^\prime$.
-	As such, we will only prove that if $\tau \sim \tau^\prime \implies \tau \dsim \tau^\prime$ for all $\tau,\tau^\prime \in B_n$, then $A\cong A^*$.
+	As such, we will only prove that if $\tau \sim \tau^\prime \implies \tau \dsim \tau^\prime$ for all $\tau,\tau^\prime \in B_n$, then $A\cong A^\vee$.
 
 	Define $\psi \colon T_0 \to A$ in the following way.
 	For $t \in T_0$, there exists a $\tau \in B_n$ such that $\tau \codot h = t$.
@@ -47,10 +47,10 @@ We will consider the orbit of $\overline{h} = (\overline{s_1}, \ldots, \overline
 	Then  $\tau \sim \tau^\prime$.
 	Then, by assumption $\tau \dsim \tau^\prime$, so $\tau^\prime\codot \overline{h} = \tau \codot\overline{h}$.
 
-	So we have a map from the generating set of $A^*$ to $A$.
-	Recall the presentation of $A^*$ from \cref{thm:dual_braid_relations}.
+	So we have a map from the generating set of $A^\vee$ to $A$.
+	Recall the presentation of $A^\vee$ from \cref{thm:dual_braid_relations}.
 	Let $R$ be the set of relations (words equal to the identity) from that presentation.
-	As in \cref{lem:extend_map_to_homomorphism}, if we can show that the natural extension of $\psi$ to $R$, maps all of $R$ to the identity in $A$, then we can extend $\psi$ to a homomorphism $\psi \colon A^* \to A$.
+	As in \cref{lem:extend_map_to_homomorphism}, if we can show that the natural extension of $\psi$ to $R$, maps all of $R$ to the identity in $A$, then we can extend $\psi$ to a homomorphism $\psi \colon A^\vee \to A$.
 
 	Let $t$, $t^\prime$ and $t t^\prime t$ be as in \cref{thm:dual_braid_relations}.
 	Let $\tau B_n$ be such that
@@ -65,7 +65,7 @@ We will consider the orbit of $\overline{h} = (\overline{s_1}, \ldots, \overline
 		\psi(t t^\prime t) & = (\sigma_{n-1}^2\tau) \cdot \overline{h} = z_{n-1}z_nz_{n-1}^{-1} \\
 	\end{align*}
 
-	Thus, $\psi( [t t^\prime t][t][t^\prime]^{-1}[t]^{-1} ) = 1$ and $\psi$ extends to a homomorphism $\psi \colon A^* \to A$.
+	Thus, $\psi( [t t^\prime t][t][t^\prime]^{-1}[t]^{-1} ) = 1$ and $\psi$ extends to a homomorphism $\psi \colon A^\vee \to A$.
 
 	Let $\phi$ denote the homomorphism in \cref{thm:homo_art_to_dual_art}.
 	Note that $\psi \circ \phi |_{\overline{S}} = \id_{\overline{S}}$, thus  $\psi \circ \phi$ is the identity $\psi$ is an isomorphism.
