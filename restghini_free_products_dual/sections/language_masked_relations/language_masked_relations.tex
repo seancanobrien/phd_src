@@ -1,4 +1,138 @@
 %! TEX root = ../../main.tex
+Let $F \colon \cset \to \cgrp$ be the free functor and denote its action on objects as $F_S \coloneqq F(S)$ and its action on morphisms as  $f^* \coloneqq F(f \colon S \to T)$. To each quotient $G$ of $F_S$ we associate the surjective homomorphism $\pi_{(S,G)} \colon F_S \to G$ which is projection. In this context, we can frame a basic group theoretic fact.
+
+\begin{theorem}
+	Suppose we have two groups $G_1$ and $G_2$. Suppose that $G_1 \cong \GroupPres{S \relations R}$ where $R$ is a subset of $F_S$ for which $\pi_{(S,G_1)}(R) = \Set{1}$.
+	Given a map $f \colon S \to G_2$, if  $\pi_{(G_2, G_2)} \circ f^*(R) = \Set{1} \subseteq G_2$, then $f$ defines a homomorphism $h \colon G_2 \to G_2$.
+	\label{thm:homomorphism_universal_prop}
+\end{theorem}
+\begin{proof}
+	Let $N$ be the minimal normal subgroup in $F_{S}$ which contains the elements of $R$ such that $G_1 \cong F_{S}/N$.
+	By assumption, $R \subseteq \ker(\pi_{(G_2,G_2)} \circ f^*)$, which is normal, thus $N \subseteq \ker(\pi_{(G_2,G_2)} \circ f^*)$.
+	By the universal property of the quotient we have the following commutative diagram where the unique map $h$ is the required homomorphism.
+	\begin{equation*}
+		\begin{tikzcd}
+			F_{S} \ar[rr, "\pi_{(G_2,G_2)} \circ f^*"] \ar[d, "\pi_{(S,G_1)}"'] & & G_2 \\
+			F_{S}/N \cong G_1 \ar[rru, "\exists ! h"']
+		\end{tikzcd}
+	\end{equation*}
+\end{proof}
+
+The above theorem defines a homomorphism $h \colon \GroupPres{S \relations R} \cong G_1 \to G_2$ when a map $f \colon S \to G_2$ is compatible with the relations in $G_1$ and $G_2$.
+If we also had knowledge of a generating set for $G_2$, we could construct homomorphisms in a different way.
+\begin{theorem}
+Suppose $G_1 \cong \GroupPres{S_1 \relations R_1}$ and $G_2 \cong \GroupPres{S_2}$.
+Given a map $f \colon S_1 \to S_2$, if there exists a map  $h$ such that the following diagram commutes, then $h$ is a homomorphism.
+\[
+\begin{tikzcd}
+	S_1 \ar[d, "f"] \ar[r, hook, "i_1"] & F_{S_1} \ar[d, "f^*"] \ar[rr, "\pi_{(S_1, G_1)}"] & & \ar[d, color=red, "h"] G_1 \\
+	S_2 \ar[r, hook, "i_2"] & F_{S_2} \ar[rr, "\pi_{(S_2, G_2)}"] & & G_2
+\end{tikzcd}
+\]
+\end{theorem}
+\begin{proof}
+	Apply \cref{thm:homomorphism_universal_prop} to the map $\pi_{(S_2, G_2)} \circ i_2 \circ f$.
+\end{proof}
+
+Consider the above diagram, but replacing $F_{S_1}$ with some subset $Q \subseteq F_{S_1}$. We will now construct a group, which we will denote $G^Q$, where such a diagram defines a homomorphism from $G^Q$ to $G_2$.
+
+ \begin{definition}
+	 Suppose we have a group $G \cong \GroupPres{S}$.
+	 Fix some $Q \subseteq F_S$ such that $S \subseteq Q$.
+	 Let $\pi \coloneq \pi_{(S,G)}$.
+	 We have the following maps.
+	 \[
+	 \begin{tikzcd}
+		 S \ar[r, hook, "i"] & Q \ar[r, "\pi"] & \pi(Q)
+	 \end{tikzcd}
+	 .\]
+	 Define the \emph{group with relations visible in $Q$}, $G^Q$ to be  
+	 \[
+		 G^Q \coloneqq \GroupPres{\pi(Q) \relations \Set{\pi(q) = (\pi \circ i)^*(q) \given q \in Q} }
+	 .\]
+	 \label{def:G_Q}
+\end{definition}
+\begin{remark}
+	Do not think of  the generators $\pi(Q)$ as elements of $G$.
+	They are abstract generators.
+	Specifically,  $G^Q$ is a quotient of  $F_{\pi(Q)}$.
+	Thus, our relations should be equations in $F_{\pi(Q)}$, which they are.
+\end{remark}
+\begin{lemma}
+	Let $G \cong \GroupPres{S}$ be a group and consider the following setup.
+	\[
+	\begin{tikzcd}
+		S \ar[r, hook, "i_S"] & F_S \ar[rr, "\pi_{(S,G)}"] & & G \ar[r, hook, "i_G"] & F_G \ar[rr, "\pi_{(G,G)}"] & & G
+	\end{tikzcd}
+	\]
+	The following maps are equal.
+	\[
+		\pi_{(G,G)} \circ i_G \circ \pi_{(S,G)} = \pi_{(G,G)} \circ (\pi_{(S,G)} \circ i_S)^*
+	.\]
+	\label{lem:group_projections}
+\end{lemma}
+\begin{theorem}
+	Suppose we have two groups $G_1 \cong \GroupPres{S_1}$ and $G_2 \cong \GroupPres{S_2}$.
+	Fix some $Q \subseteq F_{S_1}$ such that  $S \subseteq Q$.
+	Let $\overline{Q} \coloneqq \pi_{(S_1, G_1)}(Q) $.
+	If in the following diagram, there exists a map $f$ that makes the diagram commute, then there is a homomorphism $h \colon G^Q \to G_2$.
+	\[
+		\begin{tikzcd}
+			S_1 \ar[d, "\theta"] \ar[r, hook, "i_{S_1}"] & Q \ar[d, "\theta^*"] \ar[rr, "\pi_{(S_1,G_1)}"] & & \overline{Q} \ar[d, color=red, "\exists f ?"] \\
+			S_2 \ar[r, hook, "i_{S_2}"] & F_{S_2} \ar[rr, "\pi_{(S_2,G_2)}"] & & G_2 
+		\end{tikzcd}
+		\]
+\end{theorem}
+\begin{proof}
+	Suppose we have such a map $f$.
+	Note that  $\overline{Q}$ is a generating set for  $G^Q$, thus we have the setup of \cref{thm:homomorphism_universal_prop}.
+	We use the following commutative diagram to define some inclusion maps and as a reference for the setup.
+	\begin{equation}
+		\begin{tikzcd}
+			S_1 \ar[d, "\theta"] \ar[r, hook, "i_{S_1}"] & Q \ar[d, "\theta^*"] \ar[rr, "\pi_{(S_1, G_1)}"] & & \overline{Q} \ar[d, "f"] \ar[r, "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[d, "f^*"]
+			\\ S_2 \ar[r, hook, "i_{S_2}"] & F_{S_2} \ar[rr, "\pi_{(S_2, G_2)}"] & & G_2 \ar[r, hook, "i_{G_2}"] & F_{G_2} \ar[rr, "\pi_{(G_2, G_2)}"] & & G_2
+		\end{tikzcd}
+		\label{eqn:G_Q_proof_setup}
+	\end{equation}
+	We can construct a homomorphism if $\pi_{(G_2, G_2)} \circ f^*(R) = \Set{1}$, where $R$ are the relations for $G^Q$, defined in \cref{def:G_Q}.
+	For some $q \in Q$, the corresponding element in $R$ equalling the identity is  $i_{\overline{Q}} \circ \pi_{(S_1,G_1)}(q)(\pi_{(S_1,G_1)} \circ i_1)^*(q)^{-1}$.
+	Using that $\pi_{(G_2,G_2)} \circ f^*$ is a homomorphism, we have
+	\begin{align*}
+		\pi_{(G_2,G_2)} \circ f^* \left(i_{\overline{Q}} \circ \pi_{(S_1,G_1)}(q)(\pi_{(S_1,G_1)} \circ i_1)^*(q)^{-1}\right) =
+		\\ \left(\pi_{(G_2,G_2)} \circ f^* \circ i_{\overline{Q}} \circ \pi_{(S_1,G_1)} (q)\right) \left( \pi_{(G_2,G_2)} \circ f^* \circ\left( \pi_{(S_1,G_1)} \circ i_{S_1}\right)^*(q)^{-1} \right).
+	\end{align*}
+	We will concentrate on each factor separately.
+
+	First we consider the first factor.
+	Since $\pi_{(S_1, G_1)}(q) \in \overline{Q}$, by the rightmost commuting square of \eqref{eqn:G_Q_proof_setup}, we have $f^* \circ i_{\overline{Q}} \circ \pi_{(S_1, G_1)}(q) = i_{G_2} \circ f \circ \pi_{(S_1,G_1)} (q)$.
+	This gives us
+	\begin{align*}
+		\pi_{(G_2,G_2)} \circ f^* \circ i_{\overline{Q}} \circ \pi_{(S_1,G_1)} (q) = \pi_{(G_2,G_2)} \circ i_{G_2} \circ f \circ \pi_{(S_1,G_1)}(q).
+	\end{align*}
+	We then use the middle commuting square of \eqref{eqn:G_Q_proof_setup} to give us
+	\begin{align*}
+		\pi_{(G_2,G_2)} \circ i_{G_2} \circ f \circ \pi_{(S_1,G_1)}(q) = \pi_{(G_2,G_2)} \circ i_{G_2} \circ \pi_{(S_2,G_2)} \circ \theta^*(q).
+	\end{align*}
+	We then use \cref{lem:group_projections} and functoriality, giving us
+	\begin{align*}
+		\pi_{(G_2,G_2)} \circ i_{G_2} \circ \pi_{(S_2,G_2)} \circ \theta^*(q) &= \pi_{(G_2,G_2)} \circ \left( \pi_{(S_2,G_2)} \circ i_{S_2} \right)^*  \circ \theta^*(q)
+										   \\ &= \pi_{(G_2,G_2)} \circ \left( \pi_{(S_2,G_2)} \circ i_{S_2} \circ \theta \right)^*(q)
+	\end{align*}
+
+	We now concentrate on the second factor. Using functoriality, then the middle commuting square of \eqref{eqn:G_Q_proof_setup}, we get
+	\begin{align*}
+		\pi_{(G_2,G_2)} \circ f^* \circ\left( \pi_{(S_1,G_1)} \circ i_{S_1}\right)^*(q)^{-1} &= \pi_{(G_2,G_2)} \circ \left( f \circ \pi_{(S_1,G_1)} \circ i_{S_1}\right)^*(q)^{-1}
+												  \\ &= \pi_{(G_2,G_2)} \circ \left(\pi_{(S_2,G_2)} \circ \theta^* \circ i_{S_1}\right)^*(q)^{-1}.
+	\end{align*}
+	Then, we use the leftmost commuting square of \eqref{eqn:G_Q_proof_setup} to get
+	\begin{align*}
+		\pi_{(G_2,G_2)} \circ \left(\pi_{(S_2,G_2)} \circ \theta^* \circ i_{S_1}\right)^*(q)^{-1} = \pi_{(G_2,G_2)} \circ \left(\pi_{(S_2,G_2)} \circ i_{S_2} \circ \theta \right)^*(q)^{-1}.
+	\end{align*}
+
+	This is the inverse of the left factor.
+	\end{proof}
+To show that 
+we could define a ma
 For a set of symbols $\mathcal{S}$, define  $\mathcal{S}^*$ to be the language of all words in  $\mathcal{S}$.
 Consider the following and compare with \cref{lem:extend_map_to_homomorphism}.
 
