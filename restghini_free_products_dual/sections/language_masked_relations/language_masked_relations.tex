@@ -1,5 +1,5 @@
 %! TEX root = ../../main.tex
-Let $F \colon \cset \to \cgrp$ be the free functor and denote its action on objects as $F_S \coloneqq F(S)$ and its action on morphisms as  $f^* \coloneqq F(f \colon S \to T)$. To each quotient $G$ of $F_S$ we associate the surjective homomorphism $\pi_{(S,G)} \colon F_S \to G$ which is projection. In this context, we can frame a basic group theoretic fact.
+Let $F \colon \cset \to \cgrp$ be the free functor and denote its action on objects as $F_S \coloneqq F(S)$ and its action on morphisms as  $f^* \coloneqq F(f \colon S \to T)$. To each quotient $G$ of $F_S$ we associate the surjective homomorphism $\pi_{(S,G)} \colon F_S \to G$ which is projection. In this context, we can frame a basic group theoretic fact. We write $G \cong \GroupPres{S \relations R}$ if  $G \cong F_S / N(R)$ where $N(R)$ is the minimal normal subgroup in $F_S$ that contains $R$. We write  $G \cong \GroupPres{S}$ if  $G$ is isomorphic to some quotient of  $F_S$.
 
 \begin{theorem}
 	Suppose we have two groups $G_1$ and $G_2$. Suppose that $G_1 \cong \GroupPres{S \relations R}$ where $R$ is a subset of $F_S$ for which $\pi_{(S,G_1)}(R) = \Set{1}$.
@@ -7,13 +7,13 @@ Let $F \colon \cset \to \cgrp$ be the free functor and denote its action on obje
 	\label{thm:homomorphism_universal_prop}
 \end{theorem}
 \begin{proof}
-	Let $N$ be the minimal normal subgroup in $F_{S}$ which contains the elements of $R$ such that $G_1 \cong F_{S}/N$.
-	By assumption, $R \subseteq \ker(\pi_{(G_2,G_2)} \circ f^*)$, which is normal, thus $N \subseteq \ker(\pi_{(G_2,G_2)} \circ f^*)$.
+	We have $G_1 \cong F_{S}/N(R)$.
+	By assumption, $R \subseteq \ker(\pi_{(G_2,G_2)} \circ f^*)$, which is normal, thus $N(R) \subseteq \ker(\pi_{(G_2,G_2)} \circ f^*)$.
 	By the universal property of the quotient we have the following commutative diagram where the unique map $h$ is the required homomorphism.
 	\begin{equation*}
 		\begin{tikzcd}
 			F_{S} \ar[rr, "\pi_{(G_2,G_2)} \circ f^*"] \ar[d, "\pi_{(S,G_1)}"'] & & G_2 \\
-			F_{S}/N \cong G_1 \ar[rru, "\exists ! h"']
+			F_{S}/N(R) \cong G_1 \ar[rru, "\exists ! h"']
 		\end{tikzcd}
 	\end{equation*}
 \end{proof}
@@ -23,20 +23,42 @@ If we also had knowledge of a generating set for $G_2$, we could construct homom
 \begin{theorem}
 Suppose $G_1 \cong \GroupPres{S_1 \relations R_1}$ and $G_2 \cong \GroupPres{S_2}$.
 Given a map $f \colon S_1 \to S_2$, if there exists a map  $h$ such that the following diagram commutes, then $h$ is a homomorphism.
-\[
+\begin{equation}
 \begin{tikzcd}
-	S_1 \ar[d, "f"] \ar[r, hook, "i_1"] & F_{S_1} \ar[d, "f^*"] \ar[rr, "\pi_{(S_1, G_1)}"] & & \ar[d, color=red, "h"] G_1 \\
-	S_2 \ar[r, hook, "i_2"] & F_{S_2} \ar[rr, "\pi_{(S_2, G_2)}"] & & G_2
+	S_1 \ar[d, "f"] \ar[r, hook, "i_{S_1}"] & F_{S_1} \ar[d, "f^*"] \ar[rr, "\pi_{(S_1, G_1)}"] & & \ar[d, color=red, "h"] G_1 \\
+	S_2 \ar[r, hook, "i_{S_2}"] & F_{S_2} \ar[rr, "\pi_{(S_2, G_2)}"] & & G_2
 \end{tikzcd}
-\]
+\label{eqn:homomorphism_squares}
+\end{equation}
+	\label{thm:homomorphism_squares}
 \end{theorem}
 \begin{proof}
-	Apply \cref{thm:homomorphism_universal_prop} to the map $\pi_{(S_2, G_2)} \circ i_2 \circ f$.
+	Consider some $a,b \in G_1$. Since $\pi_{(S_1,G_1)}$ is surjective, we can choose some $\overline{a} \in \pi_{(S_1,G_1)}^{-1}(a)$ and $b \in \pi_{(S_1,G_1)}^{-1}(b)$.
+	Since $\pi_{(S_1,G_1)}$ is a homomorphism, we have $\overline{a}\overline{b} \in \pi_{(S_1,G_1)}^{-1}(ab)$. So $h(ab) = h \circ \pi_{(S_1,G_1)}(\overline{a}\overline{b})$.
+	By the commutative diagram, this is $\pi_{(S_2,G_2)} \circ f^* (\overline{a}\overline{b})$.
+	Since $\pi_{(S_2,G_2)} \circ f^*$ is a homomorphism, this is
+	\begin{align*}
+		\pi_{(S_2,G_2)} \circ f^*\left(\overline{a}\right)\pi_{(S_2,G_2)} \circ f^*\left(\overline{b}\right) = 
+		\\ h \circ \pi_{(S_1,G_1)}\left( \overline{a} \right) h \circ \pi_{(S_1,G_1)}\left( \overline{b} \right) =
+		\\ h(a)h(b)
+	\end{align*}
 \end{proof}
 
-Consider the above diagram, but replacing $F_{S_1}$ with some subset $Q \subseteq F_{S_1}$. We will now construct a group, which we will denote $G^Q$, where such a diagram defines a homomorphism from $G^Q$ to $G_2$.
+\begin{corollary}
+	A map $h \colon G_1 \to G_2$ is a homomorphism if and only if we can construct the relevant commuting diagram \eqref{eqn:homomorphism_squares}.
+\end{corollary}
+\begin{proof}
+	\cref{thm:homomorphism_squares} gives us the $\impliedby$ direction. If we consider $G \cong \GroupPres{G_2}$ we can construct the  $\implies$ direction.
+\end{proof}
 
- \begin{definition}
+\begin{remark}
+	If we construct a homomorphism using \cref{thm:homomorphism_universal_prop}, then we get the middle commuting square of \eqref{eqn:homomorphism_squares} automatically.
+	\label{rmk:universal_prop_homomorphism_gives_squares}
+\end{remark}
+
+Now consider \eqref{eqn:homomorphism_squares}, but replace $F_{S_1}$ with some subset $Q \subseteq F_{S_1}$. We will now construct a group, which we will denote $G^Q$, where such a diagram defines a homomorphism from $G^Q$ to $G_2$.
+
+\begin{definition}[Group with relations visible in $Q$]
 	 Suppose we have a group $G \cong \GroupPres{S}$.
 	 Fix some $Q \subseteq F_S$ such that $S \subseteq Q$.
 	 Let $\pi \coloneq \pi_{(S,G)}$.
@@ -46,18 +68,25 @@ Consider the above diagram, but replacing $F_{S_1}$ with some subset $Q \subsete
 		 S \ar[r, hook, "i"] & Q \ar[r, "\pi"] & \pi(Q)
 	 \end{tikzcd}
 	 .\]
-	 Define the \emph{group with relations visible in $Q$}, $G^Q$ to be  
+	 Define the \emph{group $G$ with relations visible in $Q$}, to be  
 	 \[
 		 G^Q \coloneqq \GroupPres{\pi(Q) \relations \Set{\pi(q) = (\pi \circ i)^*(q) \given q \in Q} }
 	 .\]
 	 \label{def:G_Q}
 \end{definition}
+
 \begin{remark}
 	Do not think of  the generators $\pi(Q)$ as elements of $G$.
 	They are abstract generators.
 	Specifically,  $G^Q$ is a quotient of  $F_{\pi(Q)}$.
 	Thus, our relations should be equations in $F_{\pi(Q)}$, which they are.
 \end{remark}
+
+\begin{remark}
+	$G^Q$ is generated by $\pi(S) \subseteq \pi(Q)$.
+	$G$ is a quotient of  $G^Q$.
+\end{remark}
+
 \begin{lemma}
 	Let $G \cong \GroupPres{S}$ be a group and consider the following setup.
 	\[
@@ -71,25 +100,29 @@ Consider the above diagram, but replacing $F_{S_1}$ with some subset $Q \subsete
 	.\]
 	\label{lem:group_projections}
 \end{lemma}
+
 \begin{theorem}
 	Suppose we have two groups $G_1 \cong \GroupPres{S_1}$ and $G_2 \cong \GroupPres{S_2}$.
 	Fix some $Q \subseteq F_{S_1}$ such that  $S \subseteq Q$.
 	Let $\overline{Q} \coloneqq \pi_{(S_1, G_1)}(Q) $.
-	If in the following diagram, there exists a map $f$ that makes the diagram commute, then there is a homomorphism $h \colon G^Q \to G_2$.
-	\[
+	If in the following diagram \eqref{eqn:G_Q_homomorphism_setup}, if there exists a map $f$ that makes the diagram commute, then there is a homomorphism $h \colon (G_1)^Q \to G_2$.
+	\begin{equation}
 		\begin{tikzcd}
 			S_1 \ar[d, "\theta"] \ar[r, hook, "i_{S_1}"] & Q \ar[d, "\theta^*"] \ar[rr, "\pi_{(S_1,G_1)}"] & & \overline{Q} \ar[d, color=red, "\exists f ?"] \\
 			S_2 \ar[r, hook, "i_{S_2}"] & F_{S_2} \ar[rr, "\pi_{(S_2,G_2)}"] & & G_2 
 		\end{tikzcd}
-		\]
+		\label{eqn:G_Q_homomorphism_setup}
+	\end{equation}
+	\label{thm:G_Q_homomorphism}
 \end{theorem}
+
 \begin{proof}
 	Suppose we have such a map $f$.
 	Note that  $\overline{Q}$ is a generating set for  $G^Q$, thus we have the setup of \cref{thm:homomorphism_universal_prop}.
 	We use the following commutative diagram to define some inclusion maps and as a reference for the setup.
 	\begin{equation}
 		\begin{tikzcd}
-			S_1 \ar[d, "\theta"] \ar[r, hook, "i_{S_1}"] & Q \ar[d, "\theta^*"] \ar[rr, "\pi_{(S_1, G_1)}"] & & \overline{Q} \ar[d, "f"] \ar[r, "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[d, "f^*"]
+			S_1 \ar[d, "\theta"] \ar[r, hook, "i_{S_1}"] & Q \ar[d, "\theta^*"] \ar[rr, "\pi_{(S_1, G_1)}"] & & \overline{Q} \ar[d, "f"] \ar[r, hook, "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[d, "f^*"]
 			\\ S_2 \ar[r, hook, "i_{S_2}"] & F_{S_2} \ar[rr, "\pi_{(S_2, G_2)}"] & & G_2 \ar[r, hook, "i_{G_2}"] & F_{G_2} \ar[rr, "\pi_{(G_2, G_2)}"] & & G_2
 		\end{tikzcd}
 		\label{eqn:G_Q_proof_setup}
@@ -130,122 +163,52 @@ Consider the above diagram, but replacing $F_{S_1}$ with some subset $Q \subsete
 	\end{align*}
 
 	This is the inverse of the left factor.
-	\end{proof}
-To show that 
-we could define a ma
-For a set of symbols $\mathcal{S}$, define  $\mathcal{S}^*$ to be the language of all words in  $\mathcal{S}$.
-Consider the following and compare with \cref{lem:extend_map_to_homomorphism}.
-
-\begin{lemma}
-	Let $G$ and $G^\prime$ be groups generated by $S$ and $S^\prime$ respectively.
-	Let $\pi_G \colon (S \cup S^{-1})^* \to G$ denote multiplication of words in the group, and similarly for $\pi_{G^\prime}$.
-	Suppose we have a map  $\theta \colon S \to S^\prime$.
-	We can extend $\theta$ to a function $\theta^* \colon (S \cup S^{-1})^* \to (S^\prime \cup (S^\prime)^{-1})^*$ in the obvious way.
-	Consider the following diagram.
-	\[
-		\begin{tikzcd}
-			S \ar[d, "\theta"] \ar[r, hook] & (S \cup S^{-1})^* \ar[d, "\theta^*"] \ar[r, "\pi_G"] & G \\
-			S^\prime \ar[r, hook] & (S^\prime \cup (S^\prime)^{-1})^* \ar[r, "\pi_{G^\prime}"] & G^\prime
-		\end{tikzcd}
-		.\]
-	The left square commutes.
-	If there exists a \emph{map} $f \colon G \to G^\prime$ that makes the right square commute, then $f$ is a homomorphism.
-	\label{lem:homomorphism_squares}
-\end{lemma}
-\begin{remark}
-	Note that if $G \cong \GroupPres{S \relations R}$ then such a map (and thus homomorphism) $f$ exists exactly when  $\pi_{G^\prime} \circ \theta^* (R) = 1$.
-	The above lemma frames up the construction in \cref{lem:extend_map_to_homomorphism}, but does not provide any useful way to detect when such a homomorphism is possible.
-	\label{rem:when_does_map_exist}
-\end{remark}
-
-\begin{definition}[Group with relations visibile in Q]
-	Let $G \cong \GroupPres{S \relations R}$.
-	Let  $Q$ be some language in  $S \cup S^{-1}$ such that, considering  $S$ as one-letter words, $S \subseteq Q$.
-	We define the group with relations visible in $Q$,  $G^Q$ to be
-	\[
-		G^Q \coloneqq \GroupPres{\pi_G(Q) \relations \Set{\pi_G(q_1q_2\cdots q_n) = \pi_G(q_1)\pi_G(q_2) \cdots \pi_G(q_n) \given q_1\cdots q_n \in Q} }
-		.\]
-	Note that the generators $\pi_G(Q)$ are abstract generators.
-	They do not necessarily inherit anything from $G$.
-	The only equations that are necessarily true in  $G^Q$ (which are also tautologically true in $G$) are those spelled out by the language $Q$.
-	\label{def:group_relations_visible_in_Q}
-\end{definition}
-
-\begin{remark}
-	$G^Q$ is generated by the generators $\pi_G(S)$.
-	$G$ is a quotient of  $G^Q$.
-\end{remark}
-
-\begin{theorem}
-	Let $G \cong \GroupPres{S \relations R}$, let  $G^\prime$ be generated by $S^\prime$ and let $Q$ be a language in  $S \cup S^{-1}$ such that $S \subseteq Q$ as in \cref{def:group_relations_visible_in_Q}.
-	Suppose we have a map $\theta \colon S \to S^\prime$ and define $\theta^*$ as in \cref{lem:homomorphism_squares}.
-	For brevity, let $\overline{Q} \coloneqq \pi_G(Q)$.
-	Consider the following diagram.
-	\[
-		\begin{tikzcd}
-			S \ar[d, "\theta"] \ar[r, hook] & Q \ar[d, "\theta^*"] \ar[r, "\pi_G"] & \overline{Q} \ar[d, color=red, "\exists f ?"] \ar[r, hook] & (\overline{Q} \cup \overline{Q}^{-1})^* \ar[d, "\pi_{G^Q}"]\\
-			S^\prime \ar[r, hook] & (S^\prime \cup (S^\prime)^{-1})^* \ar[r, "\pi_{G^\prime}"] & G^\prime & G^Q \ar[l, color=red, "\implies \exists g"']
-		\end{tikzcd}
-		.\]
-	The left square commutes.
-
-	Finally, the theorem is as follows.
-	If there exists a map $f \colon \pi_G(Q) \to G^\prime$ that makes the middle square commute, then there is a homomorphism $g \colon G^Q \to G^\prime$ such that the right square commutes.
-	\label{thm:commuting_diagram_GQ}
-\end{theorem}
-\begin{proof}
-	Suppose we have such a diagram and map $f$.
-	Note that, in $f$, we have a map from the generating set of $G^Q$ to $G^\prime$, which can be considered a generating set for $G^\prime$.
-	Accordingly, replace $\theta$ with  $f$ in \cref{lem:homomorphism_squares}.
-	\[
-		\begin{tikzcd}
-			\overline{Q} \ar[d, "f"] \ar[r, hook] & (\overline{Q} \cup \overline{Q}^{-1})^* \ar[d, "f^*"] \ar[r, "\pi_{G^Q}"] & G^Q \\
-			G^\prime \ar[r, hook] & (G^\prime \cup (G^\prime)^{-1})^* \ar[r, "\pi_{G^\prime}"] & G^\prime
-		\end{tikzcd}
-		.\]
-	If we can show we have a map $h \colon G^Q \to G^\prime$ such that the right square commutes, then by \cref{lem:homomorphism_squares} this is a homomorphism.
-	This will also satisfy the necessary commutation relations.
-
-	We can use the defining presentation for $G^Q \cong \GroupPres{\pi_G(Q) \relations R}$ from \cref{def:group_relations_visible_in_Q} and \cref{rem:when_does_map_exist} to show that $g$ exists.
-	Let $R$ be our relations from \cref{def:group_relations_visible_in_Q}.
-	Showing $\pi_{G^\prime} \circ f^*\left( R \right) = 1 $ will finish our proof.
-
-	Let $(q_1q_2\cdots q_n) = q \in Q$.
-	This corresponds to the relation $\pi_G(q_1\cdots q_n) = \pi_G(q_1)\cdots \pi_G(q_n) $ in $G^Q$.
-	Each of $\pi_G(q)$ and the  $\pi_G(q_i)$ are in  $\pi_G(Q)$, so  $f^*(\pi_G(q)) = f(\pi_G(q))$ and  $f^*(\pi_G(q_i)) = f(\pi_G(q_i))$.
-	By our assumed commuting diagram,  $f(\pi_G(q)) = \pi_{G^\prime}(\theta^*(q))$, so we have the following.
-	\begin{align*}
-		f^*(\pi_G(q)) & = f(\pi_G(q))                                                    \\
-		              & = \pi_{G^\prime}(\theta^*(q))                                    \\
-		              & = \pi_{G^\prime}(\theta^*(q_1\cdots q_n))                        \\
-		              & = \pi_{G^\prime}(\theta(q_1) \cdots \theta(q_n))                 \\
-		              & = \pi_{G^\prime}(\theta(q_1)) \cdots \pi_{G^\prime}(\theta(q_n)) \\
-		              & = f(\pi_G(q_1)) \cdots f(\pi_G(q_n))                             \\
-		              & = f^*(\pi_G(q_1)) \cdots f^*(\pi_G(q_n))
-	\end{align*}
-	Thus also
-	\begin{align*}
-		 & \pi_{G^\prime}(f^*(\pi_G(q)\pi_G(q_n)^{-1}\pi_G(q_{n-1})^{-1} \cdots \pi_G(q_1)^{-1})) =                   \\
-		 & \pi_{G^\prime}(f^*(\pi_G(q_1))\cdots f^*(\pi_G(q_n))(f^*(\pi_G(q_n)))^{-1}\cdots (f^*(\pi_G(q_1)))^{-1}) = \\
-		 & \pi_{G^\prime}(1)  = 1                                                                                     \\
-	\end{align*}
 \end{proof}
 
 \begin{remark}
-	Again, we note that the last part of the proof had no dependence on $G^\prime$.
-	Once we had the map $f$, we just chased the diagram and everything popped out.
-	This is because of the very specific form of the relations in  $G^Q$.
-	I believe that  $G^Q$ is defined by the diagram in \cref{thm:commuting_diagram_GQ}, but I don't know enough category theory to explore that.
+	If we set $Q = S_1 \subseteq F_{S_1}$ (the minimum subset allowed), then  $G^Q$ is  $F_{S_1}$.
+	In this case, $f$ always exists (and is  $\theta$) and \cref{thm:G_Q_homomorphism} tells us the standard theorem about homomorphisms from the free group.
 \end{remark}
+
 \begin{remark}
-	Note that in \cref{thm:commuting_diagram_GQ}, c.f.~\cref{lem:homomorphism_squares} we replaced $(S \cup S^{-1})^*$ with $Q$.
+	If we set $Q = F_{S_1}$, then $G^Q$ is  $G$, $f$ is $g$ and \cref{thm:G_Q_homomorphism} tells us nothing more than  \cref{thm:homomorphism_squares}.
 \end{remark}
-\begin{remark}
-	If we set $Q = S$ (the minimum language allowed), then  $G^Q$ is  $F_S$, the free group generated by  $S$.
-	Then  $f$ always exists (and is  $\theta$) and \cref{thm:commuting_diagram_GQ} tells us the standard theorem about homomorphisms from the free group.
-\end{remark}
-\begin{remark}
-	If we set $Q = (S \cup S^{-1})^*$ (the maximum language), then $G^Q$ is  $G$, $f$ is  $g$ and \cref{thm:commuting_diagram_GQ} tells us nothing more than  \cref{lem:homomorphism_squares}.
-\end{remark}
+
+\begin{corollary}
+	The homomorphism $h$ resulting from \cref{thm:G_Q_homomorphism} makes the following diagram \eqref{eqn:G_Q_homomorphism_square} commute.
+	Thus, considering $S_1$ as a generating set for  $(G_1)^Q$, $h$ is an extension of $\theta$, as in \cref{thm:homomorphism_squares}.
+	\begin{equation}
+		\begin{tikzcd}
+			S_1 \ar[d, "\theta"] \ar[r, hook, "i_{S_1}"] & Q \ar[d, "\theta^*"] \ar[rr, "\pi_{(S_1, G_1)}"] & & \overline{Q} \ar[d, "f"] \ar[r, hook, "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[d, "f^*"] \ar[rr, "\pi_{\left(\overline{Q}, (G_1)^Q\right)}"] & & (G_1)^Q \ar[d, "h"]
+			\\ S_2 \ar[r, hook, "i_{S_2}"] & F_{S_2} \ar[rr, "\pi_{(S_2, G_2)}"] & & G_2 \ar[r, hook, "i_{G_2}"] & F_{G_2} \ar[rr, "\pi_{(G_2, G_2)}"] & & G_2
+		\end{tikzcd}
+		\label{eqn:G_Q_homomorphism_square}
+	\end{equation}
+\end{corollary}
+
+\begin{proof}
+	By \cref{rmk:universal_prop_homomorphism_gives_squares}, we get the rightmost square in \eqref{eqn:G_Q_homomorphism_square}.
+\end{proof}
+
+\begin{corollary}
+	If $\theta \colon S_1 \to S_2$ is surjective, then the homomorphism $h \colon (G_1)^Q \to G_2$ resulting from \cref{thm:G_Q_homomorphism} is surjective.
+\end{corollary}
+
+We now consider altering $Q$.
+
+\begin{corollary}
+	Suppose we have some group $G \cong \GroupPres{S \relations R}$.
+	Given some $Q,Q^\prime \subseteq F_{S}$ such that $S \subseteq Q \subseteq Q^\prime$, there exists a surjective homomorphism $a: G^{Q} \to G^{Q^\prime}$.
+\end{corollary}
+
+\begin{proof}
+	Apply \cref{thm:G_Q_homomorphism} with $G_2 = G^{Q^\prime}$ and $\theta = \id_S$. We get the required homomorphism if there exists an $f$ such that the following diagram commutes.
+	\begin{equation*}
+		\begin{tikzcd}
+			& Q \ar[dl, "\pi_{(S,G)}"] &
+			\\ \overline{Q}
+		\end{tikzcd}
+	\end{equation*}
+\end{proof}
 
 
