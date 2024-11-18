@@ -207,13 +207,13 @@ If we set $Q=F_S$, then $G^Q \cong G$, so $G$ can be realised as a quotient of $
 	\end{tikzcd}
 \end{equation*}
 
-If we consider the fact that the following diagram commutes, then we see that $p_Q$ is injective on $\pi_{\left(S,G^Q\right)}(Q) = \pi_{\left( \overline{Q},G^Q \right)} \circ i_{\overline{Q}} \circ \pi_{(S,G)}(Q)$.
+If we consider the fact that the following diagram commutes, then we see that $p_Q$ is injective on $\pi_{\left(S,G^Q\right)}(Q)$.
 
 
 
 \begin{equation*}
 	\begin{tikzcd}
-		Q \ar[rr, "\pi_{(S,G)}"] \ar[rrrrrr, bend right=30, "\pi_{(S,G)}"] & & \overline{Q} \ar[r , "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[rr, "\pi_{\left(\overline{Q},G^Q\right)}"] & & G^Q \ar[r, "p_Q"] & G
+		Q \ar[rr, "\pi_{(S,G)}"] & & \overline{Q} \ar[r , "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[rr, "\pi_{(\overline{Q},G^Q)}"] & & G^Q \ar[r, "p_Q"] & G
 	\end{tikzcd}
 \end{equation*}
 \begin{theorem}
