@@ -105,6 +105,10 @@ $G$ is a quotient of  $G^Q$, which we will explore later.
 	\label{lem:group_projections}
 \end{lemma}
 
+\begin{proof}
+	Both maps are homomorphism which agree with $\pi_{\left( S,G\right)}$ on the generating set $S$.
+\end{proof}
+
 \begin{theorem}
 	Suppose we have two groups $G_1 \cong \GroupPres{S_1}$ and $G_2 \cong \GroupPres{S_2}$.
 	Fix some $Q \subseteq F_{S_1}$ such that  $S \subseteq Q$.
@@ -207,15 +211,32 @@ If we set $Q=F_S$, then $G^Q \cong G$, so $G$ can be realised as a quotient of $
 	\end{tikzcd}
 \end{equation*}
 
-If we consider the fact that the following diagram commutes, then we see that $p_Q$ is injective on $\pi_{\left(S,G^Q\right)}(Q) = \pi_{\left( \overline{Q},G^Q \right)} \circ i_{\overline{Q}} \circ \pi_{(S,G)}(Q)$.
+Furthermore, the following diagram commutes.
 
-
-
-\begin{equation*}
+\begin{equation}
 	\begin{tikzcd}
-		Q \ar[rr, "\pi_{(S,G)}"] \ar[rrrrrr, bend right=30, "\pi_{(S,G)}"] & & \overline{Q} \ar[r , "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[rr, "\pi_{\left(\overline{Q},G^Q\right)}"] & & G^Q \ar[r, "p_Q"] & G
+		Q \ar[rr, "\pi_{(S,G)}"] \ar[rrrrrr, bend right=20, "\pi_{(S,G)}"] & & \overline{Q} \ar[r, hook, "i_{\overline{Q}}"] & F_{\overline{Q}} \ar[rr, "\pi_{\left(\overline{Q},G^Q\right)}"] & & G^Q \ar[r, "p_Q"] & G
 	\end{tikzcd}
-\end{equation*}
+	\label{eqn:basic_commutation_for_injectivity}
+\end{equation}
+
+TODO fix this
+
+This is because $i_{\overline{Q}}$ is a restriction of $i_G \colon G \to F_G$, which is a homomorphism.
+So both the bottom and top maps in \eqref{eqn:basic_commutation_for_injectivity} are restrictions of homomorphisms.
+And the top map agrees with the bottom map on the generating set $S \subseteq Q$.
+
+Thus, if $\pi_{(S,G)}(q_1) = \pi_{(S,G)}(q_1)$, then necessarily $\pi_{\left(S,G^Q\right)}(q_1) = \pi_{\left( S,G^Q \right)}(q_2)$, thus $p_Q$ is injective on $\pi_{\left( \overline{Q},G^Q \right)} \circ i_{\overline{Q}} \circ \pi_{(S,G)}(Q) = \pi_{\left(S,G^Q\right)}(Q)$.
+This can be expressed in the following diagram, where the bottom map is injective.
+
+\begin{equation}
+	\begin{tikzcd}
+		& Q \ar[dl, "\pi_{\left(S,G^Q\right)}"'] \ar[dr, "\pi_{\left(S,G\right)}"] &
+		\\ \pi_{\left( S,G^Q \right)} (Q) \ar[rr, hook, "p_Q"]  & & \pi_{\left( S,G \right)}(Q)
+	\end{tikzcd}
+	\label{eqn:injectivity_of_P_Q_on_Q}
+\end{equation}
+
 \begin{theorem}
 	Given some group $G \cong \GroupPres{S}$ and $Q$ such that $S \subseteq Q \subseteq F_S$, we have that $G^Q$ is isomorphic to the following group by extending the natural identification of generators.
 	\begin{equation}
@@ -225,24 +246,66 @@ If we consider the fact that the following diagram commutes, then we see that $p
 
 \begin{proof}
 	We begin by showing that $\id_S$ extends to a homomorphism $a \colon X \to G^Q$.
-	Using \cref{thm:homomorphism_universal_prop}, it suffices to show $\pi_{(S,G^Q)}(q_1q_2^{-1}) = 1$ for all $q_1,q_2 \in Q$ such that $\pi_{(S,G)}(q_1) = \pi_{(S,G)}(q_2)$.
+	Using \cref{thm:homomorphism_universal_prop}, it suffices to show $\pi_{\left(S,G^Q\right)}(q_1q_2^{-1}) = 1$ for all $q_1,q_2 \in Q$ such that $\pi_{(S,G)}(q_1) = \pi_{(S,G)}(q_2)$.
+	Using \eqref{eqn:injectivity_of_P_Q_on_Q}, if $\pi_{(S,G)}(q_1) = \pi_{(S,G)}(q_2)$ then $\pi_{\left(S,G^Q\right)}(q_1) = \pi_{\left(S,G^Q\right)}(q_2)$.
+	Then, since $\pi_{\left(S,G^Q\right)}$ is a homomorphism, we have
+	\[
+		\pi_{(S,G^Q)}\left(q_1q_2^{-1}\right) = \pi_{(S,G^Q)}(q_1)\pi_{(S,G^Q)}(q_2)^{-1} = 1
+		.\]
 
-\end{proof}
-We now consider altering $Q$.
-
-\begin{corollary}
-	Suppose we have some group $G \cong \GroupPres{S \relations R}$.
-	Given some $Q,Q^\prime \subseteq F_{S}$ such that $S \subseteq Q \subseteq Q^\prime$, there exists a surjective homomorphism $a: G^{Q} \to G^{Q^\prime}$.
-\end{corollary}
-
-\begin{proof}
-	Apply \cref{thm:G_Q_homomorphism} with $G_2 = G^{Q^\prime}$ and $\theta = \id_S$.
-	We get the required homomorphism if there exists an $f$ such that the following diagram commutes.
+	Now we work to show that $\id_S$ also extends to a homomorphism $b \colon G^Q \to X$.
+	Using \cref{thm:G_Q_homomorphism}, it is sufficient to show that there exists a map $f$ to make the following diagram commute.
 	\begin{equation*}
 		\begin{tikzcd}
-			& Q \ar[dl, "\pi_{(S,G)}"] &
-			\\ \overline{Q}
+			& Q \ar[dl, "\pi_{(S,G)}"'] \ar[dr, "\pi_{(S,X)}"] &
+			\\ G \ar[rr, "f"] & & X
 		\end{tikzcd}
 	\end{equation*}
+	Such an $f$ exists if for all $q_1,q_2 \in Q$ such that $\pi_{\left( S,G \right)} (q_1) = \pi_{\left( S,G \right)} (q_2)$, we also have $\pi_{\left( S,X \right) }(q_1) = \pi_{\left( S,X \right) }(q_2)$.
+	This is immediately true on inspection of the defining presentation for $X$.
+
+	Thus, we have two homomorphisms, $a \colon X \to G^Q$, and $b \colon G^Q \to X$.
+	Furthermore, by construction $\left( a \circ b \right) |_S = \id_S$, thus $a \circ b$ is the identity and $a$ is an isomorphism.
 \end{proof}
 
+We now consider altering $Q$.
+If we increase $Q$ to some $Q^\prime$ where $Q \subseteq Q^\prime$, we see that both $G^Q$ and $G^{Q^\prime}$ are generated by the image of $S$, but the relations for $G^{Q^\prime}$ are a superset of the relations for $G^Q$.
+Thus, $G^{Q^\prime}$ can be realised as a quotient of $G^Q$ via a surjective homomorphism $p$, for which the following diagram commutes.
+
+\begin{equation}
+	\begin{tikzcd}
+		& F_S \ar[dl, "\pi_{\left( S, G^Q \right) }"'] \ar[dr, "\pi_{\left( S, G^{Q^\prime} \right) }"] &
+		\\ G^Q \ar[rr, "p"] & & G^{Q^\prime}
+	\end{tikzcd}
+	\label{eqn:projecting_G_Q_to_G_Q_prime}
+\end{equation}
+
+Conversely, if $\id_S$ can extend to a homomorphism in the opposite direction $G^{Q^\prime} \to G^Q$, then $G^Q$ and $G^{Q^\prime}$ are isomorphic.
+We can use \cref{thm:G_Q_homomorphism} to find when this is possible.
+
+\begin{theorem}
+	Given some group $G \cong \GroupPres{S}$, and $Q, Q^\prime \subseteq F_S$ such that $S \subseteq Q \subseteq Q^\prime$, if there exists a map $f$ that makes the following diagram commute, then $G^Q \cong G^{Q^\prime}$.
+
+	\begin{equation*}
+		\begin{tikzcd}
+			& Q^\prime \ar[dl, "\pi_{\left( S, G \right) }"'] \ar[dr, "\pi_{\left( S, G^Q \right) }"] &
+			\\ \pi_{\left( S, G \right) }(Q^\prime) \ar[rr, "f"] & & \pi_{\left( S,G^Q \right) }(Q^\prime)
+		\end{tikzcd}
+	\end{equation*}
+	\label{thm:extending_Q_resulting_in_isomorphism}
+\end{theorem}
+
+\begin{proof}
+	By \cref{thm:G_Q_homomorphism}, this we know that $\id_S$ extends to a homomorphism $a \colon G^{Q^\prime} \to G^Q$.
+	Using $p \colon G^Q \to G^{Q^\prime}$ in \eqref{eqn:projecting_G_Q_to_G_Q_prime} gives us a homomorphism in the opposite direction such that $\left(p \circ a \right) |_S = \id_S$, thus $a$ is an isomorphism.
+\end{proof}
+
+A pleasant feature of \cref{thm:extending_Q_resulting_in_isomorphism} is that we only need to understand the behaviour of $\pi_{\left( S,G \right) }$ and $\pi_{\left( S, G^Q \right) }$ on $Q^\prime$ in order to know if we can increase $Q$ to $Q^\prime$.
+We do not need to understand how $\pi_{\left(S,G^{Q^\prime}\right)}$ behaves.
+This suggests the possibility of extending $Q$ inductively.
+
+We have a well--defined notion of $Q$ being maximal.
+If  $Q \subseteq F_S$ is such that any $Q^\prime \supset Q$ results in a $G^{Q^\prime} \ncong G^Q$, then we say $Q$ is maximal.
+We also have an equivalent notion of $Q$ being minimal.
+
+It is unclear whether a minimal or maximal $Q$ is unique.
