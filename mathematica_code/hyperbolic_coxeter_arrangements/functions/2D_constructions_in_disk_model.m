@@ -104,3 +104,70 @@ ProjectTwoPointsToDisk[p1_, p2_] := Module[
    p2Projected = projectionMatrix . p2;
    (*Return the projected points in 2D*)
    {p1Projected, p2Projected, projectionMatrix}];
+
+(* ========================================================== *)
+(* NUMERIC *)
+(* ========================================================== *)
+
+NumericallyConditionPlanarGeodesic[{u_, a_}, 
+   tol_ : 0.0001] :=
+  {Normalize[If[Abs[#] < tol, 0, #] & /@ u], 
+   If[Abs[a] < tol, 0, a]};
+
+PlanarGeodesicsAreEqual[{u1_, r1_}, {u2_, r2_}, 
+   tol_ : 0.01] :=
+  If[r1 < tol && r2 < tol,
+   (* If both planes are equatorial then if u1 = u2, 
+   both planes are equal *)
+   Norm[u1 - u2] < tol || Norm[u1 + u2] < tol,
+   Norm[u1 - u2] < tol && Abs[r1 - r2] < tol];
+
+ReflectPlanarGeodesicNumeric[planarGeodesicToReflect_, 
+   planarGeodesicToReflectAcross_] := 
+  NumericallyConditionPlanarGeodesic@
+    ReflectPlanarGeodesicAcrossPreCooked[planarGeodesicToReflect,
+    NumericallyConditionPlanarGeodesic[planarGeodesicToReflectAcross]];
+
+ReflectAcrossMultiplePlanarGeodesicNumeric[s_, listToReflectAcross_] := 
+  If[Length[listToReflectAcross] == 0,
+   s,
+   ReflectAcrossMultiplePlanarGeodesicNumeric[
+    ReflectPlanarGeodesicNumeric[s, Last[listToReflectAcross]], 
+    Most[listToReflectAcross]]
+   ];
+
+(* ========================================================== *)
+(* PLOTTING *)
+(* ========================================================== *)
+
+PlotImageOfPlanarGeodesic[{u_, a_}, f_, colour_ : Black] := 
+  If[a == 0,
+   Module[
+    {v},
+    v = Normalize[{u[[2]],-u[[1]]}];
+    ParametricPlot[
+     f[r*v],
+     {r, -1, 1},
+     PlotStyle ->
+     {Directive[colour], Thickness[0.002]}
+    ]
+   ],
+
+   ParametricPlot[
+    f@ParamCap2D[{u, a}][\[Theta]],
+    {\[Theta], -Pi/2 + ArcCos[a], Pi/2 - ArcCos[a]},
+    Mesh -> None,
+    PlotStyle ->
+     {Directive[colour], Thickness[0.002]}
+   ]];
+
+PlotPlanarGeodesic[{u_, a_}, colour_ : Black] :=
+   PlotImageOfPlanarGeodesic[{u, a}, Identity, colour];
+
+ParamCap2D[{u_, a_}] := Module[
+   {r, cent, v, w},
+   {cent, r} = PlanarGeodesicInfo[{u, a}];
+   v = Normalize[{u[[2]],-u[[1]]}];
+   Function[\[Theta], 
+    cent - r*(v*Sin[\[Theta]] + u*Cos[\[Theta]])]
+   ];

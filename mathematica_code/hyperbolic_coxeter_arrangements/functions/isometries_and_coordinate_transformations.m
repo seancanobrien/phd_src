@@ -31,6 +31,14 @@ TranslatePointInImaginaryDirectionHalfSpace[x_, d_] := Exp[d] x;
 (* ============= Moving between models of Hyperbolic space ============= \
  *)
 
+
+DiskToHalfPlane[x_] := Module[
+   {imaginaryPart, zDisk, zHalfSpace},
+   zDisk = x[[2]] * I + x[[1]];
+   zHalfSpace = (-I*zDisk + 1)/(zDisk - I);
+   {Re[zHalfSpace], Im[zHalfSpace]}
+];
+
 DiskToHalfSpace[x_, imaginaryAxis_ : {0, 0, 1}] := Module[
    {imaginaryPart, realVector, zDisk, zHalfSpace},
    imaginaryPart = x . imaginaryAxis;
