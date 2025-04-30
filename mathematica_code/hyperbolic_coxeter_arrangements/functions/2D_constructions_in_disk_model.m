@@ -16,6 +16,20 @@ GetPlanarGeodesicFromCentRad[cent_, rad_] := Module[
    {u, r}
    ];
 
+ReflectInPlanarGeodesic[x_,{u_,r_}] :=
+  If[r == 0, Function[# - 2 (# . u) u][x],
+   With[{cent = 1/r u, R = Sqrt[1/r^2 - 1]}, 
+    Function[cent + R^2/(# - cent) . (# - cent) (# - cent)][x]]];
+
+ReflectInMultiplePlanarGeodesic[s_, listToReflectAcross_] := 
+  If[Length[listToReflectAcross] == 0,
+   s,
+   ReflectInMultiplePlanarGeodesic[
+    ReflectInPlanarGeodesic[s, Last[listToReflectAcross]], 
+    Most[listToReflectAcross]]
+   ];
+
+
 ReflectInPlanarGeodesicNaive[{u_, a_}] := Module[
    {cent, rad},
    {cent, rad} = PlanarGeodesicInfo[{u, a}];

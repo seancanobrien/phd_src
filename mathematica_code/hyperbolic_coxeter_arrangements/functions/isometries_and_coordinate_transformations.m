@@ -19,7 +19,7 @@ TranslatePointInZDirectionDisk[{x_, y_, z_}, d_] :=
 (* ============= Isometries and metrics in Half Space Model ============= \
 *)
 
-DistanceInHalfSpace[u_, v_, imaginaryAxis_ : {0, 1, 0}] := Module[
+DistanceInHalfSpace[u_, v_, imaginaryAxis_ : {0, 0, 1}] := Module[
    {imagU, imagV},
    imagU = u . imaginaryAxis;
    imagV = v . imaginaryAxis;
@@ -31,10 +31,16 @@ TranslatePointInImaginaryDirectionHalfSpace[x_, d_] := Exp[d] x;
 (* ============= Moving between models of Hyperbolic space ============= \
  *)
 
+HalfPlaneToDisk[x_] := Module[
+   {zDisk, zHalfSpace},
+   zHalfSpace = x[[1]] + I * x[[2]];
+   zDisk = (I*zHalfSpace + 1)/(zHalfSpace + I);
+   {Re[zDisk], Im[zDisk]}
+];
 
 DiskToHalfPlane[x_] := Module[
-   {imaginaryPart, zDisk, zHalfSpace},
-   zDisk = x[[2]] * I + x[[1]];
+   {zDisk, zHalfSpace},
+   zDisk = x[[1]] + I * x[[2]];
    zHalfSpace = (-I*zDisk + 1)/(zDisk - I);
    {Re[zHalfSpace], Im[zHalfSpace]}
 ];

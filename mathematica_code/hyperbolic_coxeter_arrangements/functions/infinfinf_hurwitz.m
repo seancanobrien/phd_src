@@ -33,6 +33,32 @@ HurwitzActionCustomConj[i_, R_, conj_] :=
     ]
    ];
 
+ReflectInGeodesicTuple[{a_, b_}, x_] := 
+  If[MemberQ[{a, b, x}, Infinity | -Infinity], 
+    If[MemberQ[{a}, Infinity | -Infinity], 2 {b, 0} - x, 
+      If[MemberQ[{b}, Infinity | -Infinity], 2 {a, 0} - x, (a + b)/2]], 
+    Module[{cent, rad},
+        cent = (b+a)/2;
+        rad = Abs[b-a]/2;
+        ReflectInCentRad[{cent,rad},x]
+    ]
+  ];
+
+ReflectInCentRad[{cent_,rad_},x_]:= Module[
+  {z, mobCircToImAxis},
+  z = x[[1]] + I * x[[2]];
+  mobCircToReAxis = MobCircleToRealLine[{cent, rad}];
+  z = (MobMatrixToMap[Inverse[mobCircToReAxis]]@*Conjugate@*MobMatrixToMap[mobCircToReAxis])[z];
+  {Re[z],Im[z]}
+];
+
+ReflectInMultipleGeodesicTuples[x_, listOfTuples_]:=
+  If[Length[listOfTuples] == 0,
+   x,
+   ReflectInMultipleGeodesicTuples[ReflectInGeodesicTuple[Last[listOfTuples], x], 
+    Most[listOfTuples]]
+   ];
+
 HurwitzActionInfInfInfDuples[i_,R_] := HurwitzActionCustomConj[i, R, LineReflectGeodesic];
 
 MultipleHurwitzActionInfInfInfDuples[R_, listOfActions_] :=
@@ -74,6 +100,6 @@ AllGeodesicDuplesFromHurwitzAction[R_, actions_] :=
  Module[
   {Rs},
   Rs = Flatten[
-    Table[MultipleHurwitzAction[R, action], {action, actions}], 1];
+    Table[MultipleHurwitzActionInfInfInfDuples[R, action], {action, actions}], 1];
   DeleteDuplicates[Rs, GeodesicTupleEqual]
   ]
