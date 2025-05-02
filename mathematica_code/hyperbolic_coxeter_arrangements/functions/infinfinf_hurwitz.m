@@ -44,6 +44,24 @@ ReflectInGeodesicTuple[{a_, b_}, x_] :=
     ]
   ];
 
+(* 2. A function to generate all unique reflections from a list *)
+GenerateGeodesicTuplesStep[objs_List] := 
+  DeleteDuplicates[
+    Flatten[
+      Table[LineReflectGeodesic[a, b], {a, objs}, {b, objs}], 
+      1
+    ] ~Join~ objs
+  ];
+
+(* 3. A function to iterate this process until no new objects are generated *)
+GenerateGeodesicTuples[initial_List,n_] := 
+  FixedPoint[
+    GenerateGeodesicTuplesStep, 
+    initial,
+    n
+  ];
+
+
 ReflectInCentRad[{cent_,rad_},x_]:= Module[
   {z, mobCircToImAxis},
   z = x[[1]] + I * x[[2]];
