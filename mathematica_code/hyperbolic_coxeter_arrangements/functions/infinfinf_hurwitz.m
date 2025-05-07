@@ -109,8 +109,8 @@ PlotGeodesicDuple[{a_, b_}, colour_: Red] :=
      ]]
    ];
 
-GenerateWords[i_Integer?Positive, n_Integer?Positive] :=
- Flatten[Table[Tuples[Range[-i, i], k], {k, 1, n}], 1]
+GenerateWords[s_, n_Integer?Positive] :=
+ Flatten[Table[Tuples[s, k], {k, 0, n}], 1]
 
 GeodesicTupleEqual[a_, b_] := Sort[a] === Sort[b];
 
