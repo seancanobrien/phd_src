@@ -1,0 +1,10 @@
+# Exclude all build files except main output
+build/**/*
+!build/main.pdf
+
+# Archive files
+*.tar.gz
+*.zip
+
+# Files created by the `latexmk` tool
+latexmkrc
