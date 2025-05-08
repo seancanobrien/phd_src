@@ -24,7 +24,7 @@ MobComposeReflectionInTwoCircles[{cent1_, rad1_}, {cent2_, rad2_}] :=
 (* Mobius utilities *)
 MobMatrixToMap[mat_] := Function[
    {z},
-   If[z==Infinity || z==-Infinity,mat[[1,1]]/mat[[2,1]],
+   If[z==Infinity || z==-Infinity,If[mat[[2,1]]==0,Infinity,mat[[1,1]]/mat[[2,1]]],
    If[z*mat[[2,1]]+mat[[2,2]]==0, Infinity,
    (z*mat[[1, 1]] + mat[[1, 2]])/(z*mat[[2, 1]] + mat[[2, 2]])]
    ]];
