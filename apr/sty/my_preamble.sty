@@ -7,6 +7,7 @@
 
 % Bibliography
 \usepackage{cite}
+% \usepackage{biblatex}
 
 % Images
 \usepackage{graphicx}
@@ -34,7 +35,7 @@
 
 % Automatically loaded when using amsart document class
 % \usepackage{amsmath}
-% \usepackage{amssymb}
+\usepackage{amssymb}
 \usepackage{mathtools}
 
 % ----- Custom maths macros ----------------------------------------------------
@@ -61,10 +62,12 @@
 % ======  Manipulating packages  ===============================================
 
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corrolary}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{question}[theorem]{Question}
+\newtheorem{basic_fact}[theorem]{Basic fact}
 
 \newtheorem{definition}[theorem]{Definition}
 

@@ -1,4 +1,3 @@
-\subsection{Literature review}
 Let $(W,S)$ denote a Coxeter system where $W$ is the Coxeter group and $S$ is its generating reflections.
 Associated to this system is an edge labelled graph $\Gamma$.
 The vertices of  $\Gamma$ correspond to elements of  $S$.
@@ -7,17 +6,17 @@ We use $W_\Gamma$ and  $A_\Gamma$  as a shorthand for the Coxeter and Artin grou
 Note that $\Gamma$ also defines a Coxeter system, so we may use this notation in place of $(W,S)$.
 
 Let $\Abs{\Gamma}$ denote the number of vertices in $\Gamma$.
-Associated to a Coxeter system $\Gamma$, there is the so-called \emph{Tits cone}, denoted $T$, which is a subset of $\R^\Abs{\Gamma}$.
+Associated to a Coxeter system $\Gamma$, there is the so-called \emph{Tits cone}, denoted $T$, which is a subset of $\R^{\Abs{\Gamma}}$.
 The Tits cone sees a canonical way of realising $W_\Gamma$ as a linear group.
 The action of $S \subseteq W_\Gamma$ on  $T$ is by reflections (corresponding to a possibly non-standard inner product) through hyperplanes intersecting $T$.
 All conjugates of $S$ in $W_\Gamma$ similarly act by reflections, and all such elements define a hyperplane intersecting $T$.
 Let $H$ denote this set of hyperplanes.
-We have that $H$ separates  $T$ into regions which are simplicial cones and are fundamental domains for the action of  $W_\Gamma$.
+It can be shown that $H$ separates  $T$ into regions which are simplicial cones and are fundamental domains for the action of  $W_\Gamma$.
 
 With this picture in mind, we define the complexified hyperplane arrangement $\overline{Y}$.
 
 \[
-	\overline{Y} \coloneq \left(T \times T\right) \setminus \bigcup_{h \in G} h \times h
+	\overline{Y} \coloneq \left(T \times T\right) \setminus \bigcup_{h \in H} h \times h
 	.\]
 
 The action of $W_\Gamma$ on $T$ preserves pointwise the union of $H$, so we have an action of $W_\Gamma$ on $\overline{Y}$ and can consider the quotient space  $Y \coloneq W_\Gamma \backslash \overline{Y}$.
@@ -36,24 +35,57 @@ A \emph{Coxeter element} of  $W_\Gamma$ is any product of all the elements of $S
 Fixing some Coxeter element $w$, we define $C_{w,R}$ to be the complete subgraph of $\cay(W_\Gamma,R)$ consisting of all geodesics from the identity to $w$.
 
 \begin{definition}
+	\label{def:dual_artin}
 	Given a Coxeter system $\Gamma$ with reflection set  $R \subseteq W_\Gamma$ and Coxeter element $w \in W_\Gamma$, a dual Artin group is defined as follows
 	\[
-		A^\vee_\Gamma \coloneq \GroupPres{\Set{r \in R \given r \text{ is an edge in } C_{w,R}} \relations \text{loops in } C_{w,R}}
+		A^\vee_\Gamma \coloneq \GroupPres{\Set{r \in R \given r \text{ is an edge in } C_{w,R}} \relations \Set{ \text{loops in } C_{w,R}}}
 		.\]
 \end{definition}
 
 Note that I previously said \emph{the dual Artin group}, but in the definition said \emph{a dual Artin group}.
 This is because it is not known in general if $A^\vee_\Gamma$ depends on our choice of Coxeter element, though it is conjectured to not depend on that choice.
+This is reflected in the absence of $w$ in our notation  $A^\vee_\Gamma$.
+
 It is known that any Coxeter element has word length $\Abs{\Gamma}$ in $R$.
 Thus, the dual Artin group construction depends on the set of length $\Abs{\Gamma}$ $R$--factorisations of  a Coxeter element.
 In fact, it turns out to only depend on which $r \in R$ appear in such factorisations, as we will show.
 
 By \cite{bessis_dual_2003, brady_watt_kp_2002} it is known that $A^\vee_\Gamma \cong A_\Gamma$ where  $W_\Gamma$ is finite.
 The corresponding result for affine $W_\Gamma$ was first proved in \cite{mccammond_sulway_artin_2017} and also proved in \cite{paolini_salvetti_kpi1_2021}.
-Recently, in \cite{resteghini_free_2024}, Resteghini proved that if $\Gamma_1$ and  $\Gamma_2$ satisfy $A^\vee_{\Gamma_1} \cong A_{\Gamma_1}$ and $A^\vee_{\Gamma_2}\cong A_{\Gamma_2}$, then the free product also satisfies this isomorphism problem, i.e.~$A^\vee_{\Gamma_1} \ast A^\vee_{\Gamma_2} \cong A_{\Gamma_1} \ast A_{\Gamma_2}$.
-This free product also corresponds to a Coxeter system, which can be constructed by taking the disjoint union of $\Gamma_1$ and  $\Gamma_2$ and joining the two graphs by edges labelled by $\infty$.
-It is shown in \cite{delucchi_etal_dual_2022}, that all infinite triangle groups (which happen to all be hyperbolic, in the Coxeter group sense) also satisfy this isomorphism problem.
+Recently, in \cite{resteghini_free_2024}, Resteghini proved that if $\Gamma_1$ and  $\Gamma_2$ satisfy $A^\vee_{\Gamma_1} \cong A_{\Gamma_1}$ and $A^\vee_{\Gamma_2}\cong A_{\Gamma_2}$, then the free product also satisfies this isomorphism problem, i.e.~$A^\vee_{\Gamma_1 \ast \Gamma_2} \cong A_{\Gamma_1\ast \Gamma_2}$, where $\Gamma_1 \ast \Gamma_2$ is constructed by taking the disjoint union of $\Gamma_1$ and  $\Gamma_2$ and joining the two graphs by edges labelled by $\infty$.
+
+It is shown in \cite{delucchi_etal_dual_2024}, that all infinite triangle groups (which happen to all be hyperbolic, in the Coxeter group sense) also satisfy this isomorphism problem.
 Apart from these results mentioned, there are no other classes of $\Gamma$ where it is known that $A^\vee_\Gamma \cong A_\Gamma$.
 
+A vital tool in the understanding of the set of reflections in $R$ which occur in minimal $R$-factorisations of Coxeter element is the so-called \emph{Hurwitz action}.
+Given a factorisation $r_1r_2, \cdots ,r_n=w$ of a Coxeter element $w$, we can form a new factorisation by acting on the tuple  $(r_1, \ldots, r_n)$ by an element of the $n$-strand braid group  $B_n$.
+Let  $\sigma_1, \ldots , \sigma{n-1}$ denote the standard generators for $B_n$.
+The Hurwitz action of  $\sigma_1$ on  $(r_1, \ldots, r_n)$ is defined as
+\[
+	\sigma_1 \cdot (r_1, \ldots, r_n) := (r_1r_2r_1^{-1}, r_1, r_3, \ldots, r_n)
+	,\]
+the inverse is
+\[
+	\sigma_1^{-1} \cdot (r_1, \ldots, r_n) := (r_2, r_2^{-1}r_1r_2, r_3, \ldots, r_n)
+	,\]
+and we extend this action similarly to all other $\sigma_k^{\pm 1}$ for  $2\leq k \leq n$.
+The Hurwitz action generates new  $R$-factorisations because  $R$ is closed under conjugation.
+In \cite{bessis_dual_2003}, Bessis shows that the Hurwitz action is transitive on all minimal  $R$-factorisations for a Coxeter element  $w \in W_\Gamma$, where  $W_\Gamma$ is finite.
+This was the first published proof, but this was previously proved by Deligne in a letter to Looijenga \cite{deligne_letter_1974}.
+Igusa and Schiffler generalised this result to all $\Gamma$ in \cite{igusa_schiffler_exceptional_2010} and a relatively concise re-proof of that result can be found in \cite{baumeister_etal_note_2014}.
+The Hurwitz action gives us a completely combinatorial way to enumerate the minimal $R$-factorisations of a Coxeter element, although to my knowledge no progress has been made tackling this problem using purely combinatorial tools.
+
 The importance of the dual Artin group construction in recent proofs solidifies its relevance as an object of study.
-The general lack of results for very obvious questions adds to its intrigue.
+It gives a different way to study Artin groups, and the programme of proving statements about $A^\vee_\Gamma$, then proving  $A^\vee_\Gamma \cong A_\Gamma$ has seen some success as tactic to solve Artin group problems.
+The general lack of results for very obvious questions around dual Artin groups also adds to the intrigue.
+
+My research focuses on the dual Artin group isomorphism problem.
+Specifically, I am interested in the class of $\Gamma$ which have hyperbolic signature, for which  $W_\Gamma$ act naturally on  $\Hbb^{\Abs{\Gamma}-1}$.
+This is because rank 4  hyperbolic Coxeter groups ($W_\Gamma$ acting naturally on $\Hbb^3$) represent a sensible next frontier for the dual Artin group isomorphism problem.
+I also work a lot with rank 3 hyperbolic Coxeter groups as they provide a more accessible
+The most frequent setting in which I work is the projectivisation of the Tits cone $T$, which in this case is a simplicial tiling of Hyperbolic space.
+In this setting, we explore the geometry of the reflections $R \subseteq W_\Gamma$ with the aim of better understanding  $A^\vee_\Gamma$.
+
+
+
+

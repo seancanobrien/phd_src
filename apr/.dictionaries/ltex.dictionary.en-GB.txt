@@ -16,3 +16,9 @@ RAAGs
 Deligne
 subgraph
 Resteghini
+Bessis
+projectivisation
+Igusa
+Schiffler
+Looijenga
+pre-Coxeter
