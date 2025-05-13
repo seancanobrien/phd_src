@@ -233,7 +233,10 @@ PlotImageOfTriangle[verts_, f_, colour_ : Orange, opacity_: 0.9] :=
    f[ParameteriseTriangleFace[verts][u, v]],
    {u, 0, 1}, {v, 0, 1 - u},
    (* Change opacity to 0.9 *)
-   Mesh -> None, PlotStyle -> Directive[Opacity[opacity], colour]
+   Mesh->None,
+   PlotStyle -> Directive[Opacity[opacity], colour]
+   (* MeshFunctions -> Function[{u,v}, Norm[ParameteriseTriangleFace[verts][u,v]]], *)
+   (* Mesh -> {{0.7}} *)
    ];
 
 PlotImageOfTetrahedronInPlanes[planes_, f_, colouriseEdges_ : False, opacity_: 0.9] :=
@@ -259,11 +262,11 @@ PlotImageOfTetrahedronInPlanes[planes_, f_, colouriseEdges_ : False, opacity_: 0
    ];
 
 PlotTetrahedronInSphereCircles[sphereCircles_,
-   colouriseEdges_ : False, opacity_: 0.9] := With[
+   colouriseEdges_ : False, opacity_: 0.9, capped_: False] := With[
    (* Transform of SphereCircle to corr. 
    plane in Klein model is very simple! *)
    {planes = {#[[1]], #[[2]]} & /@ sphereCircles},
-   PlotImageOfTetrahedronInPlanes[planes, KleinToDisk, colouriseEdges, opacity]
+   PlotImageOfTetrahedronInPlanes[planes, If[capped, KleinToDiskCapped, KleinToDisk], colouriseEdges, opacity]
    ];
 
 PlotImageOfTetrahedronInSphereCircles[sphereCircles_, f_, 

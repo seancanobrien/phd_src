@@ -121,6 +121,14 @@ KleinToDisk[p_] := With[
    {s = Norm[p]},
    p/(1 + Sqrt[1 - s^2])];
 
+KleinToDiskCapped[p_] := With[
+   {s = Norm[p]},
+      If[s>0.999999999,
+         0*p,
+         p/(1 + Sqrt[1 - s^2])]
+   ];
+
+
 DiskToKlein[p_] := With[
   {u = Norm[p]},
   2/(1 + u^2) * p

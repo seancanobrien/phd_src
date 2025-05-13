@@ -1,4 +1,4 @@
-\subsection{Coxeter arrangements in $\Hbb^3$}
+\subsection{Coxeter arrangements in \texorpdfstring{$\Hbb^3$}{H3}}
 
 Since the second half of the 1st semester, I have been investigating Coxeter arrangements of rank 3 and 4 Coxeter groups of hyperbolic signature.
 The nature of this investigation has been informed by the fact that a lot of progress in this field has been made by looking at relevant pictures.
@@ -118,5 +118,56 @@ In this notation, the reflection of the plane $p_1 =(\mathbf{n_1},r)$ through $p
 					4 b^2 (-1 + 2 y^2 + z^2) + 4 c^2 (-1 + y^2 + 2 z^2))}}\,\bigg)}.
 \end{align*}
 
-We also investigated
+We also investigated Coxeter arrangements where the fundamental domain was of infinite volume.
+For $\Gamma$ of hyperbolic signature, this can only happen in rank 4 or greater.
+This is because in  $\Hbb^n$ for  $n\geq 3$, a simplex can have well-defined interplanar angles, but have vertices ``poking out" beyond infinity, as shown in \cref{fig:555_orthogonal_planes}.
+
+Coxeter systems of hyperbolic signature, where the fundamental chamber is compact or of finite volume are more well understood, and classified in \cite[Section 6.9]{humphreys_reflection_1990}.
+
+Despite being less well classified, these groups have interesting properties not shared by limit sets, as shown in \cref{fig:555_limitset}.
+The limit set is the set of points in $\Hbb^3$ that a generic point will tend to by random action by the group.
+Such limit sets are of general interest in Kleinian groups (groups with a $\Hbb^3$ action).
+Parabolic subgroups corresponding to triples of generators act on the plane that is mutually orthogonal to the triple.
+The action of the triple on this plane is some hyperbolic rank 3 Coxeter group action on $\Hbb^2$ (in this case, the $(2,5,5)$ triangle group), so its limit set is the boundary at infinity (of this copy of $\Hbb^2$).
+This limit set represents a lower dimensional object of symmetry of such a group.
+
+Furthermore, using and extending work of McMullen \cite{mcmullen_coxeter_2002}, we constructed a different metric space on which such Coxeter groups act.
+This is constructed by naively extending tetrahedrons beyond the unit ball in the Klein model, shown for $G_{555}$ in \cref{fig:555_exteded_space}.
+This gives a subspace of $\E^3$, and we place the so-called Hilbert metric on this space, which is different from any of the usual hyperbolic metrics inside the unit sphere.
+We call this space $\Omega_\Gamma$.
+When a hyperbolic signature Coxeter group has cofinite volume, then this space ends up being canonically isometric to  $\Hbb^3$.
+See \cite{papadopoulos_troyanov_handbook_2014} for an introduction to the Hilbert metric.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{555_limitset.pdf}
+		\caption{The limit set of $G_{555}$.}
+		\label{fig:555_limitset}
+	\end{subfigure}
+	\hspace{0.2ex}
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{555_orthplanes.pdf}
+		\caption{A fundamental chamber of $G_{555}$ drawn with coloured planes.
+			A plane orthogonal to three planes of the fundamental chamber (in black) defines a circle seen in the limit set.}
+		\label{fig:555_orthogonal_planes}
+	\end{subfigure}%
+	\caption{Exploring the limit set of $G_{555}$.}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=7cm]{555_extended.pdf}
+	\caption{A rough approximation of $\Omega_\Gamma$ for $G_{555}$.}
+	\label{fig:555_exteded_space}
+\end{figure}
+
+
+It can be shown that the Coxeter group acts by isometries on $\Omega_\Gamma$, and this construction works for any Coxeter system with hyperbolic signature and infinite co-volume.
+Using these two metrics, it can be shown that if a geodesic in $\Hbb^n$ is preserved setwise, and moved by translation by some element of the Coxeter group (in particular, the Coxeter axis satisfies this), then this line meets the boundary at two points where the boundary of $\Omega_\Gamma$ meets the unit sphere.
+Such points are points in the limit set.
+In the case of $G_{555}$, a choice of Coxeter element has axis from  $\frac{1}{\sqrt{3}}(1,1,1)$ to $\frac{1}{\sqrt{3}}(-1,-1,-1)$.
+
 
