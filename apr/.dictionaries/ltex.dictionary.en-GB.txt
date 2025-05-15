@@ -25,3 +25,5 @@ pre-Coxeter
 interplanar
 cofinite
 Kleinian
+Delucci
+subcone

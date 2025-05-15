@@ -93,11 +93,13 @@ PlotGeodesicDuple[{a_, b_}, colour_: Red] :=
      a === Infinity || a === -Infinity,
      Style[
       Line[{{b, 0}, {b, 2}}],
+      Thickness[0.0007],
        colour],
      
      b === Infinity || b === -Infinity,
      Style[
       Line[{{a, 0}, {a, 2}}],
+      Thickness[0.0007],
       colour],
      
      True,
@@ -105,12 +107,45 @@ PlotGeodesicDuple[{a_, b_}, colour_: Red] :=
      radius = Abs[b - a]/2;
      ParametricPlot[{center + radius Cos[\[Theta]], 
        radius Sin[\[Theta]]}, {\[Theta], 0, Pi}, PlotRange -> All, 
-      PlotStyle -> colour]
+      PlotStyle -> {colour, Thickness[0.0007]}
+        ]
      ]]
    ];
 
 GenerateWords[s_, n_Integer?Positive] :=
  Flatten[Table[Tuples[s, k], {k, 0, n}], 1]
+
+ClearAll[GenerateWords]
+GenerateWords[alphabet_List, n_Integer] := Module[
+  {
+    flatAlphabet,  (* Flattened list of symbols *)
+    isValidWord,   (* Function to check validity of a word *)
+    allWords,      (* All candidate words *)
+    validWords     (* Words that pass the filter *)
+  },
+  
+  flatAlphabet = Flatten[alphabet];
+
+  isValidWord[word_List] := Module[
+    {pairs = Partition[word, 2, 1]},
+    AllTrue[pairs, #[[1]] =!= ComplementPair[#[[2]], alphabet] &]
+  ];
+
+  ComplementPair[sym_, alpha_] := Module[
+    {i = Position[alpha, _?(MemberQ[#, sym] &), 1, 1]},
+    If[i === {},
+      Missing["NotFound"],
+      With[{pair = alpha[[First[i][[1]]]]},
+        If[sym === pair[[1]], pair[[2]], pair[[1]]]
+      ]
+    ]
+  ];
+
+  allWords = Flatten[Table[Tuples[flatAlphabet, k], {k, 0, n}], 1];
+  validWords = Select[allWords, isValidWord];
+
+  validWords
+]
 
 GeodesicTupleEqual[a_, b_] := Sort[a] === Sort[b];
 
