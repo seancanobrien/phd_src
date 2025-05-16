@@ -1,8 +1,8 @@
 \subsection{Coxeter arrangements in \texorpdfstring{$\Hbb^3$}{H3}}
 
-Since the second half of the 1st semester, I have been investigating Coxeter arrangements of rank 3 and 4 Coxeter groups of hyperbolic signature.
+Since the second half of the 1st semester, we have been investigating Coxeter arrangements of rank 3 and 4 Coxeter groups of hyperbolic signature.
 The nature of this investigation has been informed by the fact that a lot of progress in this field has been made by looking at relevant pictures.
-Accordingly, using Mathematica, I have developed a set of tools to make exact computations for, and visualise, Coxeter arrangements in $\Hbb^2$ and $\Hbb^3$.
+Accordingly, using Mathematica, we have developed a set of tools to make exact computations for, and visualise, Coxeter arrangements in $\Hbb^2$ and $\Hbb^3$.
 Developing such tools had the advantage of providing tangible examples on which to try ideas, and was a good way to learn hyperbolic geometry.
 
 In the following, let $G_{353}$ and $G_{555}$ be Coxeter groups corresponding to the following $\Gamma$.
@@ -44,11 +44,11 @@ In the following, let $G_{353}$ and $G_{555}$ be Coxeter groups corresponding to
 \]
 
 It turns out that $G_{353}$ is the only rank 4 Coxeter system for which the $K(\pi,1)$ conjecture is open.
-It also happens to be geometrically well-behaved, in that its fundamental domain in $\Hbb^3$ is compact and of finite volume.
+It also happens to be geometrically well-behaved, in that its fundamental domain in $\Hbb^3$ is of finite volume and is compact.
 
 The geometry of a rank 4 hyperbolic Coxeter group is determined by 6 interplanar angles.
 In Euclidean space, if these interplanar angles do correspond to some tetrahedron, then it is relatively simple to find a specific tetrahedron that realises these angles.
-In $\Hbb^3$, this is more complicated, since angles are specific scale.
+In $\Hbb^3$, this is more complicated, since angles are specific to scale.
 We developed a way to symbolically compute tetrahedrons in $\Hbb^3$ corresponding to any appropriate Coxeter group.
 
 We used this to realise a specific model for $G_{353}$.
@@ -80,10 +80,10 @@ In \cref{fig:353_origin}, we only see orange faces since the cells shown are the
 In \cref{fig:353_cut}, we see a cut of the Coxeter arrangement of $G_{353}$ along a plane in  $\Hbb^3$.
 For this, we initially plotted significantly more cells of the Coxeter arrangement than in  \cref{fig:353_origin}.
 This is an irregular tiling of $\Hbb^2$.
-In the case of  $G_{353}$, taking different cuts reveals the same tiling up to translation.
+In the case of  $G_{353}$, taking cuts along different planes reveals the same tiling up to translation.
 
 In \cref{fig:353_coxeter_axis}, we see the Coxeter axis corresponding to the product of the red, green, blue and orange planes of the fundamental chamber in that order.
-Alongside this, we see some cells that lie along the Coxeter axis.
+As well as this, we see some cells that lie along the Coxeter axis.
 Such cells are important as any reflection factorisation of a Coxeter element that makes a tetrahedron must be one of these cells.
 
 \begin{figure}
@@ -97,14 +97,14 @@ Such cells are important as any reflection factorisation of a Coxeter element th
 	\begin{minipage}{.5\textwidth}
 		\centering
 		\includegraphics[width=6cm]{353_coxeteraxis.pdf}
-		\caption{The Coxeter axis Corresponding to a Coxeter element in $G_{353}$, as well as some cells that lie along this Coxeter axis.}
+		\caption{The Coxeter axis corresponding to a Coxeter element in $G_{353}$, as well as some cells that lie along this Coxeter axis.}
 		\label{fig:353_coxeter_axis}
 	\end{minipage}
 \end{figure}
 
-We were not able to use these tools to prove anything about $G_{353}$, but in developing these plots and the geometric tools needed to make them, I gained a lot of intuition and knowledge for these hyperbolic arrangements.
+These tools did not lead to any proofs, but have been vital in gaining understanding and intuition for these hyperbolic arrangements.
 We were also able to compute some closed forms for certain geometric constructions in $\Hbb^2$ and  $\Hbb^3$ useful for future calculations.
-For example, we may denote planes in $\Hbb^3$ as $p = (\mathbf{n},r)$, where $\mathbf{n}$ and $r$ are a normal vector and non-negative real respectively, such that the circle of intersection of $p$ with the unit sphere is the same as the circle of intersection of the plane $\mathbf{n} \cdot \mathbf{x} = r$ with the unit sphere.
+For example, we may denote planes in $\Hbb^3$ as $p = (\mathbf{n},r)$, where $\mathbf{n}$ and $r$ are a unit vector and non-negative real respectively, such that the circle of intersection of $p$ with the unit sphere is the same as the circle of intersection of the plane $\mathbf{n} \cdot \mathbf{x} = r$ with the unit sphere.
 In this notation, the reflection of the plane $p_1 =(\mathbf{n_1},r)$ through $p_2 = (\mathbf{n_2},s)$ with $\mathbf{n_1}=(x,y,z)$ and  $\mathbf{n_2}=(a,b,c)$ is
 \begin{align*}
 	 & {\scriptscriptstyle R_{p_2}(p_1) =\bigg(\text{Sign}\left(r(1+s^2)-2s(\mathbf{n_1}\cdot\mathbf{n_2})\right)\; \text{Normalise}\big[}                      \\
@@ -119,11 +119,11 @@ In this notation, the reflection of the plane $p_1 =(\mathbf{n_1},r)$ through $p
 					4 b^2 (-1 + 2 y^2 + z^2) + 4 c^2 (-1 + y^2 + 2 z^2))}}\,\bigg)}.
 \end{align*}
 
-We also investigated Coxeter arrangements where the fundamental domain was of infinite volume.
-For $\Gamma$ of hyperbolic signature, this can only happen in rank 4 or greater.
-This is because in  $\Hbb^n$ for  $n\geq 3$, a simplex can have well-defined interplanar angles, but have vertices ``poking out" beyond infinity, as shown in \cref{fig:555_orthogonal_planes}.
+Although this was achieved mostly by symbolic manipulation rather than geometry, so can almost certainly be improved.
 
-Coxeter systems of hyperbolic signature, where the fundamental chamber is compact or of finite volume are more well understood, and classified in \cite[Section 6.9]{humphreys_reflection_1990}.
+Coxeter systems of hyperbolic signature, where the fundamental chamber is compact or of finite volume are relatively well understood, and classified in \cite[Section 6.9]{humphreys_reflection_1990}.
+For $\Gamma$ of hyperbolic signature, the volume of the fundamental domain (its \emph{co-volume}) can only be infinite in rank 4 or greater.
+This happens because in  $\Hbb^n$ for  $n\geq 3$, a simplex can have well-defined interplanar angles, but have vertices ``poking out" beyond infinity, as shown in \cref{fig:555_orthogonal_planes}.
 
 \begin{figure}[ht]
 	\centering
@@ -151,13 +151,14 @@ Coxeter systems of hyperbolic signature, where the fundamental chamber is compac
 	\label{fig:555_exteded_space}
 \end{figure}
 
-
-Despite being less well classified, these groups have interesting properties not shared by limit sets, as shown in \cref{fig:555_limitset}.
+Infinite co-volume $\Gamma$ have interesting limit sets, as shown for $G_{555}$ in \cref{fig:555_limitset}.
 The limit set is the set of points in $\Hbb^3$ that a generic point will tend to by random action by the group.
 Such limit sets are of general interest in Kleinian groups (groups with a $\Hbb^3$ action).
-Parabolic subgroups corresponding to triples of generators act on the plane that is mutually orthogonal to the triple.
-The action of the triple on this plane is some hyperbolic rank 3 Coxeter group action on $\Hbb^2$ (in this case, the $(2,5,5)$ triangle group), so its limit set is the boundary at infinity (of this copy of $\Hbb^2$).
+
+Parabolic subgroups corresponding to triples of generators preserve setwise the plane that is mutually orthogonal to the triple.
+% The action of the triple on this plane is some hyperbolic rank 3 Coxeter group action on $\Hbb^2$ (in this case, the $(2,5,5)$ triangle group), so its limit set is the boundary at infinity (of this copy of $\Hbb^2$).
 This limit set represents a lower dimensional object of symmetry of such a group.
+For $\Gamma$ with finite co-volume, the limit set is the whole boundary sphere.
 
 Furthermore, using and extending work of McMullen \cite{mcmullen_coxeter_2002}, we constructed a different metric space on which such Coxeter groups act.
 This is constructed by naively extending tetrahedrons beyond the unit ball in the Klein model, shown for $G_{555}$ in \cref{fig:555_exteded_space}.

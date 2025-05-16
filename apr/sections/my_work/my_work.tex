@@ -1,14 +1,14 @@
 Resteghini's paper \cite{resteghini_free_2024} was released as a preprint in October 2024, so research began by reading those results.
 In doing so, we developed a group theoretic construction that would significantly clarify some of his intermediate results, as well as provide a new tool for understanding and working with $A^\vee_\Gamma$.
 
-Let $\minfact_R(x)$ denote all  $r \in R$ that occur in a minimal  $R$-factorisation of a chosen Coxeter element  $w$.
+Let $\minfact_R(w)$ denote all  $r \in R$ that occur in a minimal  $R$-factorisation of a chosen Coxeter element  $w$.
 It is clear that we can restrict the relations in \cref{def:dual_artin} to all loops that start at the identity, go all the way up to $w$, then go back down to the identity, i.e.~we have
 \[
-	A^\vee_\Gamma \cong \GroupPres{ \minfact_R(x) \relations \Set{r_1\cdots r_n = r^\prime_1 \cdots r^\prime_n \given r_1 \cdots r_n = r^\prime_1 \cdots r^\prime_n = w}}
+	A^\vee_\Gamma \cong \GroupPres{ \minfact_R(w) \relations \Set{r_1\cdots r_n = r^\prime_1 \cdots r^\prime_n \given r_1 \cdots r_n = r^\prime_1 \cdots r^\prime_n = w}}
 	.\]
 Using the fact that the Hurwitz action is transitive on such factorisations, we can further restrict this to
 \[
-	A^\vee_\Gamma \cong \GroupPres{ \minfact_R(x) \relations \Set{rsr^{-1} = t \given rs r ^{-1} = t \text{ holds in } W_\Gamma}}
+	A^\vee_\Gamma \cong \GroupPres{ \minfact_R(w) \relations \Set{rsr^{-1} = t \given rs r ^{-1} = t \text{ holds in } W_\Gamma}}
 \]
 This was noted in \cite[Lemma 7.11]{bessis_topology_2004}.
 
