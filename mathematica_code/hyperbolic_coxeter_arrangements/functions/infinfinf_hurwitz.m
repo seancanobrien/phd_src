@@ -13,6 +13,12 @@ LineReflectPoint[{a_, b_}, x_] := If[
      If[num > 0, Infinity, -Infinity], True, -num/den]]
    ];
 
+LineReflectPointMultiple[reflections_, x_]:= 
+  If[Length[reflections]==0,
+      x,
+      LineReflectPointMultiple[Most[reflections],LineReflectPoint[Last[reflections],x]]
+    ];
+
 LineReflectGeodesic[{a_, b_}, geodesic_] := 
   Sort[LineReflectPoint[{a, b}, #] & /@ geodesic];
 
