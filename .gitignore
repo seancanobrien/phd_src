@@ -1,5 +1,5 @@
 **.lock*
 **/build/*
-
+**.DS_store
 # Exclude main.pdf from being ignored
 !**/build/main.pdf
