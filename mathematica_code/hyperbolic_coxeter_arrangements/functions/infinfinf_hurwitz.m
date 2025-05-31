@@ -22,6 +22,10 @@ LineReflectPointMultiple[reflections_, x_]:=
 LineReflectGeodesic[{a_, b_}, geodesic_] := 
   Sort[LineReflectPoint[{a, b}, #] & /@ geodesic];
 
+FreeConjInv[a_, b_] := a ** b ** Inverse[a];
+
+HurwitzActionFree[i_, R_]:= HurwitzActionCustomConj[i, R, FreeConjInv];
+
 HurwitzActionCustomConj[i_, R_, conj_] :=
   If[i > 0,
    ReplacePart[R,
@@ -162,3 +166,5 @@ AllGeodesicDuplesFromHurwitzAction[R_, actions_] :=
     Table[MultipleHurwitzActionInfInfInfDuples[R, action], {action, actions}], 1];
   DeleteDuplicates[Rs, GeodesicTupleEqual]
   ]
+
+
